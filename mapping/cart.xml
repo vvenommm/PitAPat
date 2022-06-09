@@ -8,5 +8,13 @@
 	<select id="getAllCart" resultClass="cartVO">
 		SELECT * FROM CART
 	</select>
+	
+	<select id="inCart" resultClass="cartVO">
+		SELECT * FROM CART WHERE CART_PAY = 'N'
+	</select>
+	
+	<select id="payedCart" resultClass="cartVO">
+		SELECT * FROM CART WHERE CART_PAY = 'Y'
+	</select>
 
 </sqlMap>
