@@ -2,7 +2,7 @@ package kr.or.ddit.pitapet.education.dao;
 
 public interface LectureDAO {
 	
-	//내 강의실
+	//내 강의실(온라인 강의만)/////////////////////////
 	
 	//모든 내 강좌 목록
 	
@@ -11,6 +11,12 @@ public interface LectureDAO {
 	
 	
 	//유효한 강좌 목록
+	
+	
+	//강좌 목록에서 특정 강좌 누르면 그 강좌 정보 출력
+	
+	
+	//수업 듣기 버튼 누르면 영상 띄우면서 강의 들으러 가기(진행도%랑 마지막 들은 지점 저장해서 불러올건지?)
 	
 	
 	
