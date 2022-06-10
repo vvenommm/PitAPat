@@ -6,56 +6,62 @@
 <!--이 문서는 iBatis에서 처리하여 실행할 SQL문을 작성하는 문서입니다. -->
 <sqlMap namespace = "edu">
 
+
 	<!-- 1. 모든 오프라인 강좌 목록 조회 -->
 	<select id="getAllEdu" resultClass="edu">
 		SELECT * FROM EDUCATION
 	</select>
+	
 	
 	<!-- 2. 오프라인 강좌 상세 조회 -->
 	<select id="getEduInfo" parameterClass="int" resultClass="edu">
 		SELECT * FROM EDUCATION WHERE EDU_NO = #DATA#
 	</select>
 	
+	
 <!-- 	//3. 오프라인 강좌 신청 시 강아지 정보 불러오기 -->	
 	<select id="getDogInfo" parameterClass="memberVO" resultClass="dogVO">
 		SELECT * FROM DOG WHERE MEM_ID = #DATA#
 	</select>
+	
 	
 <!-- 	//4. 오프라인 강좌 신청 시 강아지 정보 입력 -->
 	<insert id="insertDogInfo" parameterClass="dogVO">
 		INSERT INTO DOG VALUES(#dog_no#, #mem_id#, #dog_name#, #dog_bir#, #dog_gender#, #dog_type#, #dog_sur#, #dog_va#, #dog_al#, #dog_pic#, #dog_etc#)
 	</insert>
 	
+	
 <!-- 	//5. 오프라인 강좌 신청 시 강아지 정보 수정된거 있으면 update -->
-	<update id="updateDogInfo" parameterClass="map">
-		UPDATE DOG SET $FIELD$ = #data# WHERE MEM_ID = #mem_id#
+	<update id="updateDogInfo" parameterClass="dogVO">
+		UPDATE DOG SET DOG_NO = #DOG_NO#, DOG_NAME = #DOG_NAME#, DOG_BIR = #DOG_BIR#, DOG_GENDER = #DOG_GENDER#, DOG_TYPE = #DOG_TYPE#, DOG_SUR = #DOG_SUR#, DOG_VA = #DOG_VA#, DOG_AL = #DOG_AL#, DOG_PIC = #DOG_PIC#, DOG_ETC = #DOG_ETC# WHERE MEM_ID = #MEM_ID#
 	</update>
 	
-<!-- 	//6. 오프라인 강좌 등록 신청(장바구니 넣기) -->
+	
+<!-- 	//6. 손님이 원하는 강좌 강아지 정보 입력 후 장바구니에 담기 -->
+	<insert id="eduInCart">
+		
+	</insert>
+	
+	
+<!-- 	//7. 훈련사가 오프라인 강좌 등록 신청 -->
 	<insert id="insertEdu" parameterClass="edu">
 		INSERT INTO EDUCATION VALUES(#EDU_NO#, #EMP_CODE#, #EDU_TITLE#, #EDU_CONTENT#, #EDU_DATE#, #EDU_PLACE#, #EDU_TIME#, #EDU_FEE#, #EDU_LIMIT#)
 	</insert>
 	
-<!-- 	//7. 신청된 오프라인 강좌 승인/비승인 -->
-	<update id="apprvEdu" parameterClass="String">
-		UPDATE EDUCATION SET EDU_STATUS = #DATA#
+	
+<!-- 	//8. 신청된 오프라인 강좌 승인/비승인 (등록, 승인, 취소, 삭제)-->
+	<update id="appInsEdu" parameterClass="String">
+		UPDATE EDUCATION SET EDU_STATUS = #EDU_STATUS# WHERE EDU_NO = #EDU_NO#
 	</update>
 	
-<!-- 	//8. 오프라인 강좌 수정 -->
-	<update id="modiEdu" parameterClass="">
-		
+	
+<!-- 	//9. 오프라인 강좌 수정 -->
+	<update id="modiEdu" parameterClass="edu">
+		UPDATE EDUCATION SET EDU_TITLE = #EDU_TITLE#, EDU_CONTENT = #EDU_CONTENT#, EDU_DATE = #EDU_DATE#, EDU_PLACE = #EDU_PLACE, EDU_TIME = #EDU_TIME#, EDU_FEE = #EDU_FEE#, EDU_LIMIT = #EDU_LIMIT#, EMP_CODE = #EMP_CODE#, EMP_CODE = #EMP_CODE# WHERE EDU_NO = #EDU_NO#
 	</update>
 	
-<!-- 	//9. 오프라인 강좌 삭제 신청 -->
 	
-	
-<!-- 	//10. 신청된 오프라인 강좌 승인 -->
-	
-	
-<!-- 	//11. 신청된 오프라인 강좌 비승인 -->
-	
-	
-<!-- 	//12. 교육 일정 조회(옵션) -->
+<!-- 	//10. 교육 일정 조회(옵션) -->
 	
 	
 	
