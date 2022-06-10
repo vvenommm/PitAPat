@@ -23,34 +23,39 @@
 	
 <!-- 	//4. 오프라인 강좌 신청 시 강아지 정보 입력 -->
 	<insert id="insertDogInfo" parameterClass="dogVO">
-		
+		INSERT INTO DOG VALUES(#dog_no#, #mem_id#, #dog_name#, #dog_bir#, #dog_gender#, #dog_type#, #dog_sur#, #dog_va#, #dog_al#, #dog_pic#, #dog_etc#)
 	</insert>
 	
 <!-- 	//5. 오프라인 강좌 신청 시 강아지 정보 수정된거 있으면 update -->
-	
+	<update id="updateDogInfo" parameterClass="map">
+		UPDATE DOG SET $FIELD$ = #data# WHERE MEM_ID = #mem_id#
+	</update>
 	
 <!-- 	//6. 오프라인 강좌 등록 신청(장바구니 넣기) -->
+	<insert id="insertEdu" parameterClass="edu">
+		INSERT INTO EDUCATION VALUES(#EDU_NO#, #EMP_CODE#, #EDU_TITLE#, #EDU_CONTENT#, #EDU_DATE#, #EDU_PLACE#, #EDU_TIME#, #EDU_FEE#, #EDU_LIMIT#)
+	</insert>
+	
+<!-- 	//7. 신청된 오프라인 강좌 승인/비승인 -->
+	<update id="apprvEdu" parameterClass="String">
+		UPDATE EDUCATION SET EDU_STATUS = #DATA#
+	</update>
+	
+<!-- 	//8. 오프라인 강좌 수정 -->
+	<update id="modiEdu" parameterClass="">
+		
+	</update>
+	
+<!-- 	//9. 오프라인 강좌 삭제 신청 -->
 	
 	
-<!-- 	//7. 신청된 오프라인 강좌 승인 -->
+<!-- 	//10. 신청된 오프라인 강좌 승인 -->
 	
 	
-<!-- 	//8. 신청된 오프라인 강좌 비승인 -->
+<!-- 	//11. 신청된 오프라인 강좌 비승인 -->
 	
 	
-<!-- 	//9. 오프라인 강좌 수정 -->
-	
-	
-<!-- 	//10. 오프라인 강좌 삭제 신청 -->
-	
-	
-<!-- 	//11. 신청된 오프라인 강좌 승인 -->
-	
-	
-<!-- 	//12. 신청된 오프라인 강좌 비승인 -->
-	
-	
-<!-- 	//13. 교육 일정 조회(옵션) -->
+<!-- 	//12. 교육 일정 조회(옵션) -->
 	
 	
 	
