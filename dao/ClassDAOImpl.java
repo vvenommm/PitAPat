@@ -52,8 +52,7 @@ public class ClassDAOImpl implements ClassDAO {
 	// 3. 훈련사가 온라인 강좌 등록 신청
 	@Override
 	public int insertCls(ClassVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return (int) smc.insert("class.insertCls", vo);
 	}
 	
 	
@@ -63,8 +62,7 @@ public class ClassDAOImpl implements ClassDAO {
 	// 4. 신청된 온라인 강좌 승인/비승인 (등록, 승인, 취소, 삭제)
 	@Override
 	public int appInsCls(ClassVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return smc.update("class.appInsCls", vo);
 	}
 	
 	
@@ -74,8 +72,7 @@ public class ClassDAOImpl implements ClassDAO {
 	// 5. 온라인 강좌 수정
 	@Override
 	public int modiCls(ClassVO vo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		return smc.update("class.modiCls", vo);
 	}
 	
 	
