@@ -45,12 +45,12 @@
 	
 <!-- 	//7. 훈련사가 오프라인 강좌 등록 신청 -->
 	<insert id="insertEdu" parameterClass="edu">
-		insert into education values(#edu_no#, #emp_code#, #edu_title#, #edu_content#, #edu_date#, #edu_place#, #edu_time#, #edu_fee#, #edu_limit#)
+		insert into education values(#edu_no#, #emp_code#, #edu_title#, #edu_content#, #edu_date#, #edu_place#, #edu_time#, #edu_fee#, #edu_limit#, '등록')
 	</insert>
 	
 	
 <!-- 	//8. 신청된 오프라인 강좌 승인/비승인 (등록, 승인, 취소, 삭제)-->
-	<update id="appInsEdu" parameterClass="String">
+	<update id="appInsEdu" parameterClass="edu">
 		update education set edu_status = #edu_status# where edu_no = #edu_no#
 	</update>
 	
