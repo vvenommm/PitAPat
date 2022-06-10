@@ -5,16 +5,39 @@
 	 
 <!--이 문서는 iBatis에서 처리하여 실행할 SQL문을 작성하는 문서입니다. -->
 <sqlMap namespace = "cart">
-	<select id="getAllCart" resultClass="cartVO">
+
+<!-- 	//1. 모든 카트 상품 가져오기 -->
+	<select id="getAllCart" resultClass="cart">
 		SELECT * FROM CART
 	</select>
 	
-	<select id="inCart" resultClass="cartVO">
+<!-- 	//2. 미결인 모든 상품 가져오기 -->
+	<select id="inCart" resultClass="cart">
 		SELECT * FROM CART WHERE CART_PAY = 'N'
 	</select>
 	
-	<select id="payedCart" resultClass="cartVO">
+<!-- 	//3. 결제한 모든 상품 상세 조회 -->
+	<select id="payedCart" resultClass="cart">
 		SELECT * FROM CART WHERE CART_PAY = 'Y'
 	</select>
+	
+	
+<!-- 	////////////////////////////////////////////////////////// -->
+
+<!-- 	//4-1. 손님이 원하는 상품 넣기 - 장바구니 비었을 때 첫 상품 -->
+	<insert id="eduInCart" parameterClass="edu">
+		INSERT INTO CART VALUES(CART_NO = #CART_NO#, CART_PAY = '미결', MEM_ID = #MEM_ID#, CLS_NO = #CLS_NO#, EDU_NO = #EDU_NO#, KIN_CODE = #KIN_CODE#, PAY_NO = #PAY_NO#)
+		EDU_NO, EMP_CODE, EDU_TITLE, EDU_CONTENT, EDU_DATE, EDU_PLACE, EDU_TIME, EDU_FEE, EDU_LIMIT, EDU_STATUS
+	</insert>
+
+<!-- 	//4-2-1. 장바구니에 이미 있고 다른 상품 추가하기 - 온라인	 -->
+
+
+<!-- 	//4-2-2. 장바구니에 이미 있고 다른 상품 추가하기 - 오프라인	 -->
+
+
+<!-- 	//4-2-3. 장바구니에 이미 있고 다른 상품 추가하기 - 유치원	 -->
+
+
 
 </sqlMap>
