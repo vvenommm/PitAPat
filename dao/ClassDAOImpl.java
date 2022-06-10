@@ -9,8 +9,10 @@ import kr.or.ddit.pitapet.vo.ClassVO;
 import kr.or.ddit.util.SqlMapClientFactory;
 
 public class ClassDAOImpl implements ClassDAO {
+	
 	private static ClassDAOImpl dao;
 	private ClassDAOImpl() {}
+	
 	public static ClassDAOImpl getInstance() {
 		if(dao == null ) dao = new ClassDAOImpl();
 		return dao;
@@ -28,8 +30,7 @@ public class ClassDAOImpl implements ClassDAO {
 	// 1. 모든 온라인 강좌 목록 조회
 	@Override
 	public List<ClassVO> getAllClass() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return smc.queryForList("class.getAllClass");
 	}
 	
 	
@@ -39,8 +40,7 @@ public class ClassDAOImpl implements ClassDAO {
 	// 2. 온라인 강좌 상세 조회
 	@Override
 	public ClassVO getClsInfo(int cls_no) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return (ClassVO) smc.queryForObject("class.getClsInfo", cls_no);
 	}
 	
 	
