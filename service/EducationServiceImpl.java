@@ -99,8 +99,6 @@ public class EducationServiceImpl implements EducationService{
 	//5. 오프라인 강좌 신청 시 강아지 정보 수정된거 있으면 update
 	@Override
 	public int updateDogInfo(DogVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
 		int resultNum = 0;
 		
 		try {
