@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.pitapet.vo.EducationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +14,22 @@
 <title>피터펫(PIT-A-PET)</title>
 </head>
 <body>
-교육 상세 화면
+<%
+	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
+
+%>
+	<div class="eduOne" style="display:inline-block">
+		<image src="/WebContent/WEB-INF/images/Better.jpg"><br>
+		<p style="display : none" name = "edu_no"><%=eduOne.getEdu_no()%></p>
+		<p style="text-align : center;"><%=eduOne.getEdu_title()%></p>
+		<p style="text-align : center;">훈련사 <%=eduOne.getEmp_name()%></p><br><hr>
+		<p style="text-align : center;"><%=eduOne.getEdu_content()%></p>
+		<p style="text-align : center;"><%=eduOne.getEdu_date()%></p>
+		<p style="text-align : center;"><%=eduOne.getEdu_time()%></p>
+		<p style="text-align : center;"><%=eduOne.getEdu_place()%></p>
+		<p style="text-align : center;"><%=eduOne.getEdu_price()%>원</p>
+		<p style="text-align : center;">모집인원 : <%=eduOne.getEdu_limit()%>명</p>
+	</div>
+	<button>장바구니 담기</button>
 </body>
 </html>
