@@ -43,10 +43,15 @@ public class Edu_Main extends HttpServlet {
 		List<EducationVO> eduList = new ArrayList<EducationVO>();
 		for(int i = 0; i < 5; i++) {
 			EducationVO vo = new EducationVO();
-			vo.setEdu_no("" + i + "");
+			vo.setEdu_no(i);
 			vo.setEdu_title("강아지와 산책하는 법");
 			vo.setEmp_name("훈련사 후후후");
-			vo.setEdu_fee(29000);
+			vo.setEdu_content("강아지와 산책하는 법을 알려드려요!");
+			vo.setEdu_date("22년 06월 11일 목요일");
+			vo.setEdu_time("4시");
+			vo.setEdu_place("피터펫 훈련소");
+			vo.setEdu_price("29,000");
+			vo.setEdu_limit(10);
 			eduList.add(vo);
 		}
 		
