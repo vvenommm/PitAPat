@@ -36,7 +36,48 @@ $(function(){
 		edu_no = $(this).find("p").eq(0).text();
 		console.log(edu_no);
 <%-- 		location.href = "<%=request.getContextPath()%>/Edu_Detail.do?edu_no=" + edu_no; --%>
-		location.href = "http://localhost/pap/Edu_Detail.do?edu_no=" + edu_no;
+// 		location.href = "http://localhost/pap/Edu_Detail.do?edu_no=" + edu_no;
+		
+		
+		$.ajax({
+			url : 'http://localhost/pap/Edu_Detail.do',
+			type : 'post',
+			data : {"edu_no" : edu_no}
+			dataType : 'json',
+			success : function(res){
+			}
+		})
+	})
+	
+	//내 강의 보기 누르면 목록 내 강의들로 새로고침
+	$(document).on('click', '#myEdu', function(){
+		eduList = $(this).parent().find('#eduList');
+// 		eduList = document.querySelector('.eduList');'
+		mem_id = <%=id%>
+		$.ajax({
+			url : 'http://localhost/pap/Edu_Detail.do',
+			type : 'get',
+			data : {"mem_id" : mem_id}
+			dataType : 'json',
+			success : function(res){
+				while(eduList.hasChildNodes()){ //부모노드(eduList)에 모든 강의(자식 노드)가 없어질 때까지
+					eduList.removeChild(eduList.firstChild);
+				}
+				code = "";
+				$.each(res, function(i, v){
+					code += '<div class="eduOne" style="display:inline-block">';
+					code += '<image src="/WebContent/WEB-INF/images/Better.jpg"><br>';
+					code += '<p style="display : none" name = "edu_no">'v.getEdu_no'</p>';
+					code += '<p style="text-align : center;">'v.getEdu_title()'</p>';
+					code += '<p style="text-align : center;">'v.getEmp_name()'</p>';
+					code += '<p style="text-align : center;">'v.getEdu_fee()'원</p>';
+					code += '<p style="text-align : center;">모집인원 : 'v.getEdu_limit()'명</p>';
+					code += '</div>';
+				})
+				$(code).appendTo(eduList);
+				
+			}
+		})
 	})
 	
 	
@@ -57,16 +98,16 @@ $(function(){
 <%
 	if(id.substring(5).equals("tr")){
 %>
-	<button href="<%=request.getContextPath()%>/Edu_Insert.do">강의 등록</button><button>내 강의 보기</button><br>
+		<button href="<%=request.getContextPath()%>/Edu_Insert.do">강의 등록</button><button id = "myEdu">내 강의 보기</button><br>
 <%
 	}if(id.substring(5).equals("ad")){
 %>
-	<button>강의 등록</button><button>강의 관리</button><br>
+		<button href="<%=request.getContextPath()%>/Edu_Insert.do">강의 등록</button><button id = "eduMng">강의 관리</button><br>
 <%		
 	}
 %>
 
-
+<div id="eduList" name = "eduList">
 <%
 	if(eduList != null && eduList.size() > 0){
 // 	if(eduList == null || eduList.size() == 0){
@@ -76,7 +117,7 @@ $(function(){
 		for(EducationVO vo : eduList){
 %>
 			<div class="eduOne" style="display:inline-block">
-					<image src="/WebContent/WEB-INF/images/Better.jpg""><br>
+					<image src="/WebContent/WEB-INF/images/Better.jpg"><br>
 					<p style="display : none" name = "edu_no"><%=vo.getEdu_no()%></p>
 					<p style="text-align : center;"><%=vo.getEdu_title()%></p>
 					<p style="text-align : center;"><%=vo.getEmp_name()%></p>
@@ -92,6 +133,7 @@ $(function(){
 			i++;
 		}
 %>
+</div>
 <%
 }else{
 %>
