@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="../../js/jquery-3.6.0.min.js"></script>
-<script src="../../js/jquery.serializejson.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -32,10 +30,13 @@
 	
 %>
 $(function(){
-	//선택한 공지사항의 번호를 불러와 조회하기
-	$(document).on("click", ".show", function(){
-		nnum = $(this).parent().find("td").eq(0).text();
-		location.href = "/PitAPet/SelectOneNotice.do?nnum=" + nnum;	
+	
+	//선택한 교육글의 번호를 불러와 상세 조회
+	$(document).on("click", ".eduOne", function(){
+		edu_no = $(this).parent().find("p").eq(0).text();
+		console.log(edu_no);
+<%-- 		location.href = "<%=request.getContextPath()%>/Edu_Detail.do?edu_no=" + edu_no; --%>
+		location.href = "http://localhost/pap/Edu_Detail.do?edu_no=" + edu_no;
 	})
 	//공지사항 등록
 	$(document).on("click", "#reg", function(){
@@ -74,11 +75,11 @@ $(function(){
 %>
 			<div class="eduOne" style="display:inline-block">
 					<image src="../images/Better.jpg"><br>
-					<span style="display : none" name = "edu_no"><%=vo.getEdu_no()%></span><br>
-					<%=vo.getEdu_title()%></a><br>
-					<%=vo.getEmp_name()%><br>
-					<%=vo.getEdu_fee()%>원<br>
-					<%=vo.getEmp_name()%><br>
+					<p style="display : none" name = "edu_no"><%=vo.getEdu_no()%></p>
+					<p style="text-align : center;"><%=vo.getEdu_title()%></p>
+					<p style="text-align : center;"><%=vo.getEmp_name()%></p>
+					<p style="text-align : center;"><%=vo.getEdu_fee()%>원</p>
+					<p style="text-align : center;">모집인원 : <%=vo.getEdu_limit()%>명</p>
 			</div>
 <%
 			if(i%3 == 0){
