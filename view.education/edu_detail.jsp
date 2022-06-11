@@ -16,10 +16,11 @@
 <script type="text/javascript">
 $(function(){
 	$('#intoCart').('click', function(){
+		eduOne = <%=request.getAttribute("eduOne")%>;
 		$.ajax({
 			url : 'http://localhost/pap/IntoCart.do',
 			type : 'post',
-			data : '',
+			data : eduOne,
 			dataType : 'json',
 			success : function(res){
 				alert('바구니에 담기 성공!');
