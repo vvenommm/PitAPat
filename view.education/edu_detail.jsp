@@ -35,10 +35,10 @@ $(function(){
 				dataType : 'json',
 				success : function(res){
 				alert('바구니에 담기 성공!');
-			}
-		})
+				}
+			})
 <%		
-	}
+		}
 %>
 	})
 // 	$('#back').('click', function(){
@@ -59,7 +59,7 @@ $(function(){
 <body>
 <%
 	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
-
+	////////////////////////////////// 관리자일 때 수정, 삭제 버튼 나오게. 훈련사는 수정삭제 자기 글일 때 나오게.
 %>
 	<div class="eduOne" style="display:inline-block">
 		<image src="/WebContent/WEB-INF/images/Better.jpg"><br>
