@@ -17,15 +17,29 @@
 $(function(){
 	$('#intoCart').('click', function(){
 		eduOne = <%=request.getAttribute("eduOne")%>;
-		$.ajax({
-			url : 'http://localhost/pap/IntoCart.do',
-			type : 'post',
-			data : eduOne,
-			dataType : 'json',
-			success : function(res){
+		
+<%
+		String id = (String)session.getAttribute("id");
+		if(id == null){
+%>
+			alert('로그인 후 이용 가능합니다.');
+			location.href = "http://localhost/pap/hom_login.do
+<%		
+		}else{
+%>
+			mem_id = <%=id%>
+			$.ajax({
+				url : 'http://localhost/pap/IntoCart.do',
+				type : 'post',
+				data : {"eduOne" : eduOne, "mem_id" : mem_id}
+				dataType : 'json',
+				success : function(res){
 				alert('바구니에 담기 성공!');
 			}
 		})
+<%		
+	}
+%>
 	})
 // 	$('#back').('click', function(){
 // 		$.ajax({
