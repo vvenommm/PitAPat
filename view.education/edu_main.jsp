@@ -33,11 +33,13 @@ $(function(){
 	
 	//선택한 교육글의 번호를 불러와 상세 조회
 	$(document).on("click", ".eduOne", function(){
-		edu_no = $(this).parent().find("p").eq(0).text();
+		edu_no = $(this).find("p").eq(0).text();
 		console.log(edu_no);
 <%-- 		location.href = "<%=request.getContextPath()%>/Edu_Detail.do?edu_no=" + edu_no; --%>
 		location.href = "http://localhost/pap/Edu_Detail.do?edu_no=" + edu_no;
 	})
+	
+	
 	//공지사항 등록
 	$(document).on("click", "#reg", function(){
 		location.href = "/PitAPet/GoInsertNotice.do?";	
@@ -74,7 +76,7 @@ $(function(){
 		for(EducationVO vo : eduList){
 %>
 			<div class="eduOne" style="display:inline-block">
-					<image src="../images/Better.jpg"><br>
+					<image src="/WebContent/WEB-INF/images/Better.jpg""><br>
 					<p style="display : none" name = "edu_no"><%=vo.getEdu_no()%></p>
 					<p style="text-align : center;"><%=vo.getEdu_title()%></p>
 					<p style="text-align : center;"><%=vo.getEmp_name()%></p>
