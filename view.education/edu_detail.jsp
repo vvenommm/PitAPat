@@ -12,6 +12,34 @@
 <script src="../js/jquery.serializejson.min.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="WEB-INF/images/logo.png"/>
 <title>피터펫(PIT-A-PET)</title>
+
+<script type="text/javascript">
+$(function(){
+	$('#intoCart').('click', function(){
+		$.ajax({
+			url : 'http://localhost/pap/IntoCart.do',
+			type : 'post',
+			data : '',
+			dataType : 'json',
+			success : function(res){
+				alert('바구니에 담기 성공!');
+			}
+		})
+	})
+// 	$('#back').('click', function(){
+// 		$.ajax({
+// 			url : '',
+// 			type : 'post',
+// 			data : '',
+// 			dataType : 'json',
+// 			success : function(res){
+				
+// 			}
+// 		})
+// 	})
+})
+</script>
+
 </head>
 <body>
 <%
@@ -30,6 +58,6 @@
 		<p style="text-align : center;"><%=eduOne.getEdu_price()%>원</p>
 		<p style="text-align : center;">모집인원 : <%=eduOne.getEdu_limit()%>명</p>
 	</div>
-	<button>장바구니 담기</button>
+	<button id="intoCart">장바구니 담기</button><button id='back'>뒤로가기</button>
 </body>
 </html>
