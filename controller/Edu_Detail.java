@@ -35,7 +35,7 @@ public class Edu_Detail extends HttpServlet {
 		
 		//결과값 받기 위한 객체 생성 후 값 받기
 		EducationVO eduOne = service.getEduInfo(edu_no);
-		System.out.println(eduOne);
+		System.out.println("edu detail.java" + eduOne);
 		
 		//결과값 저장한 객체 request에 저장
 		request.setAttribute("eduOne", eduOne);
