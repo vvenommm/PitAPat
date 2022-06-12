@@ -13,7 +13,13 @@ public class Edu_Insert extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO edu_main.jsp에서 강의 등록 누르면 edu_insert.jsp로 이동시키는 메소드
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		//edu_insert.jsp로 이동
+		request.getRequestDispatcher("WEB-INF/view.education/edu_insert.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
