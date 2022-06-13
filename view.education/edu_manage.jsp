@@ -8,6 +8,14 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png"/>
 <title>피터펫(PIT-A-PET)</title>
+<%
+	
+%>
+<script type="text/javascript">
+$(function(){
+	
+})
+</script>
 </head>
 <body>
 
@@ -44,7 +52,7 @@
 				<td><%=vo.getEdu_price() %></td>
 				<td><%=vo.getEdu_limit() %></td>
 				<td><%=vo.getEdu_status() %></td>
-				<td><button>승인</button><button>비승인</button></td>
+				<td><button class="apprv">승인</button><button class="apprv">비승인</button></td>
 			</tr>
 <%
 			i++;
