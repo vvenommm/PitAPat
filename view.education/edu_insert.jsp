@@ -1,52 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="../images/logo.png"/>
-<title>피터펫(PIT-A-PET)</title>
-</head>
-<body>
+package kr.or.ddit.pitapet.education.controller;
 
-<div id='edu_insert_div'>
-	<form action="/PitAPet/Edu_Insert.do" method="post">
-		<label>교육 제목</label>
-		<input type='text' id='edu_title' name='edu_title' class="eduInsert">
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-		<label>교육 내용</label>
-		<input type='text' id='edu_content' name='edu_title' class="eduInsert">
+import kr.or.ddit.pitapet.education.service.EducationService;
+import kr.or.ddit.pitapet.education.service.EducationServiceImpl;
+import kr.or.ddit.pitapet.vo.EducationVO;
 
-		<label>교육 일자</label>
-		<input type='date' id='edu_date' name='edu_title' class="eduInsert">
+@WebServlet("/Edu_Insert.do")
+public class Edu_Insert extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO edu_main.jsp에서 강의 등록 누르면 edu_insert.jsp로 이동시키는 메소드
+		
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		//edu_insert.jsp로 이동
+		request.getRequestDispatcher("WEB-INF/view.education/edu_insert.jsp").forward(request, response);
+	}
 
-		<label>교육 장소</label>
-		<select class="eduInsert" id='edu_place' name='edu_place'>
-			<option value="피터펫 운동장">피터펫 운동장</option>
-			<option value="피터펫 강의실 101호">피터펫 강의실 101호</option>
-			<option value="피터펫 강의실 102호">피터펫 강의실 102호</option>
-			<option value="피터펫 강의실 103호">피터펫 강의실 103호</option>
-			<option value="피터펫 출장 방문">출장 방문</option>
-		</select>
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO edu_insert.jsp에서 강의 등록하기
+		
+		//request에서 매개변수 받기
+		String emp_code = (String)request.getParameter("id");
+		
+		//요청 시 전송 데이터 받기
+		String edu_title = (String)request.getParameter("edu_title");
+		String edu_content = (String)request.getParameter("edu_content");
+		String edu_date = (String)request.getParameter("edu_date");
+		String edu_place = (String)request.getParameter("edu_place");
+		String edu_time = (String)request.getParameter("edu_time");
+		int edu_fee = Integer.parseInt(request.getParameter("edu_fee"));
+		int edu_limit = Integer.parseInt(request.getParameter("edu_limit"));
+		
+		EducationVO vo = new EducationVO();
+		vo.setEdu_title(edu_title);
+		vo.setEdu_content(edu_content);
+		vo.setEdu_date(edu_date);
+		vo.setEdu_place(edu_place);
+		vo.setEdu_time(edu_time);
+		vo.setEdu_fee(edu_fee);
+		vo.setEdu_limit(edu_limit);
+		vo.setEmp_code(emp_code);
+		
+		
+		//service 객체 얻어오기
+		EducationService service = EducationServiceImpl.getInstance();
+								
+		//결과값 받을 객체 생성 후 servlet 메소드 호출해서 결과값 받기
+		int resultNum = service.insertEdu(vo);
+							
+		//결과 값 받은 객체 request에 저장
+		request.setAttribute("resultNum", resultNum);
+				
+		//view페이지로 이동
+		request.getRequestDispatcher("WEB-INF/view.education/edu_main.jsp").forward(request, response);
+	}
 
-		<label>교육 시간</label>
-		<input type='time' id='edu_time' name='edu_time' class="eduInsert">
-
-		<label>교육 금액</label>
-		<input type='text' id='edu_fee' name='edu_fee' class="eduInsert">
-
-		<label>교육 정원</label>
-		<input type='number' id='edu_limit' name='edu_limit' class="eduInsert">
-
-		<button type='submit'>등록 신청</button>
-
-	</form>
-</div>
-
-
-
-
-
-
-</body>
-</html>
+}
