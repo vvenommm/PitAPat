@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import kr.or.ddit.pitapet.education.service.ClassService;
 import kr.or.ddit.pitapet.education.service.ClassServiceImpl;
 import kr.or.ddit.pitapet.vo.ClassVO;
-import kr.or.ddit.pitapet.vo.EducationVO;
 
 @WebServlet("/Cls_Main.do")
 public class Cls_Main extends HttpServlet {
