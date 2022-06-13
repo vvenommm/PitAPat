@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="edu_js.js"></script>
+<!-- <script src="../edu_js.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -29,8 +29,8 @@
 	boolean result = Pattern.matches(regex, id);
 %>
 <script type="text/javascript">
-$(function(){
 			mem_id = <%=session.getAttribute("id")%>;
+$(function(){
 <%-- 	let mem_id = <%=id%>; --%>
 	
 	//훈련사의 강의 등록
@@ -44,10 +44,42 @@ $(function(){
 	})
 	
 	//훈련사의 내 강의 목록 보기
-// 	$('#myEdu').on('click', function(){
-// 		eduList = document.getElementById('eduList');
+	$('#myEdu').on('click', function(){
+		eduList = document.getElementById('eduList');
 // 		getMyEdu();
-// 	})
+		$.ajax({
+			url : 'http://localhost/PitAPet/Edu_myEdu.do',
+			type : 'post',
+			data : {"mem_id" : mem_id},
+			success : function(res){
+				//부모노드(eduList)에 모든 강의(자식 노드)가 없어질 때까지
+ 				while(eduList.hasChildNodes()){ 
+ 					eduList.removeChild(eduList.childNodes[0]);
+ 				}
+				
+				code = "";
+ 				$.each(res, function(i, v){
+ 					code += '<div class="eduOne" style="display:inline-block">';
+ 					code += '<img src="images/Better.jpg" style="width : 100px;"><br>';
+ 					code += '<p style="display : none;">' + v.getEdu_no +'</p>';
+ 					code += '<p style="text-align : center;"><a href="/PitAPet/Edu_Detail.do?edu_no=' + v.getEdu_no + '">' + v.getEdu_title + '</a></p>';
+ 					code += '<p style="text-align : center;">' + v.getEmp_name + '</p>';
+ 					code += '<p style="text-align : center;">' + v.getEdu_price + '원</p>';
+ 					code += '<p style="text-align : center;">모집인원 : ' + v.getEdu_limit + '명</p>';
+ 					code += '</div>';
+					
+ 					if(i%3 == 0){
+ 						code += '<br><br><br>';
+ 					}
+ 				})
+ 				$('#eduList').html(code);
+			},
+			error : function(xhr){
+				alert('상태 : ' + xhr.status);
+			},
+			dataType : 'json',
+		})
+	})
 	
 })
 </script>
