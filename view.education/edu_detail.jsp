@@ -87,19 +87,28 @@ $(function(){
 		<p style="display : none" name = "edu_no"><%=eduOne.getEdu_no()%></p>
 <table border="1">
 	<tr>
-		<td>
+		<td colspan="4">
 			<img src="../images/Better.jpg">
 		</td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>
+		<td colspan="4">
 			<p style="text-align : center;"><%=eduOne.getEdu_title()%></p>
 		</td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>
-			<p style="text-align : center;">훈련사 <%=eduOne.getEmp_name()%></p><br><hr>
+		<td colspan="4">
+			<p style="text-align : right;">훈련사 <%=eduOne.getEmp_name()%></p><br><hr>
 		</td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>
@@ -116,14 +125,20 @@ $(function(){
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td colspan="4">
 			<p style="text-align : center;"><%=eduOne.getEdu_content()%></p>
 		</td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>
+		<td colspan="4">
 		<p style="text-align : center;"><%=eduOne.getEdu_price()%>원</p>
 		</td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 </table>
 	</div><br>
