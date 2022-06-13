@@ -24,7 +24,7 @@ public class Edu_Manage extends HttpServlet {
 		EducationService service = EducationServiceImpl.getInstance();
 		
 		//서비스로 값 가져와서 받기
-		List<EducationVO> eduList = service.getAllEdu();
+		List<EducationVO> eduList = service.getAllEdu2();
 		
 		//값 저장하기
 		request.setAttribute("eduList", eduList);
