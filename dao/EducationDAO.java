@@ -22,6 +22,18 @@ public interface EducationDAO {
 
 	
 	//////////////////////////////////////////////////////////////////
+
+	
+	//1-1. 모든 오프라인 강좌 목록 조회
+	/**
+	 * 모든 오프라인 강좌(교육)들 목록 조회
+	 * @return 모든 강좌 정보가 담긴 List 반환
+	 * @throws SQLException
+	 */
+	public List<EducationVO> getAllEdu2() throws SQLException;
+	
+	
+	//////////////////////////////////////////////////////////////////
 	
 	
 	//2. 오프라인 강좌 상세 조회
@@ -118,6 +130,19 @@ public interface EducationDAO {
 	 * @throws SQLException
 	 */
 	public int modiEdu (EducationVO vo) throws SQLException;
+	
+	
+	//////////////////////////////////////////////////////////////////
+	
+	
+	//10. 훈련사의 내 오프라인 강좌 보기
+	/**
+	 * 훈련사가 내 강좌 보기 클릭 시 본인 강의만 목록으로 출력
+	 * @param emp_code 훈련사 본인의 아이디이자 사번
+	 * @return 본인의 강의를 담고 있는 List<EducationVO) 객체
+	 * @throws SQLException
+	 */
+	public List<EducationVO> getMyEdu (String emp_code) throws SQLException;
 	
 	
 	//////////////////////////////////////////////////////////////////
