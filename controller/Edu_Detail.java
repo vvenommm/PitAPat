@@ -22,10 +22,11 @@ public class Edu_Detail extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		//edu_main.jsp에서 클릭한 교육글번호 값 변수에 담기
-		int edu_no = Integer.parseInt(request.getParameter("edu_no"));
+//		int edu_no = Integer.parseInt(request.getParameter("edu_no"));
+		int edu_no = 1;
 		System.out.println(edu_no);
 		
-		//서비스 객체 생성 ---- 여기서 문제..ㅠㅠㅠ
+		//서비스 객체 생성
 		EducationService service = EducationServiceImpl.getInstance();
 		
 		//결과값 받기 위한 객체 생성 후 값 받기
