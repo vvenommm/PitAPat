@@ -28,6 +28,13 @@ public class Edu_Insert extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO edu_insert.jsp에서 강의 등록하기
+
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		//request에서 매개변수 받기
+		String emp_code = (String)request.getParameter("id");
 		
 		//요청 시 전송 데이터 받기
 		String edu_title = (String)request.getParameter("edu_title");
@@ -46,6 +53,13 @@ public class Edu_Insert extends HttpServlet {
 		vo.setEdu_time(edu_time);
 		vo.setEdu_fee(edu_fee);
 		vo.setEdu_limit(edu_limit);
+		vo.setEmp_code("20007TR");
+		
+		//시퀀스로 만들고 이건 지우기
+		vo.setEdu_no(13);
+		
+		System.out.println(vo);
+		
 		
 		//service 객체 얻어오기
 		EducationService service = EducationServiceImpl.getInstance();
@@ -58,6 +72,7 @@ public class Edu_Insert extends HttpServlet {
 				
 		//view페이지로 이동
 		request.getRequestDispatcher("WEB-INF/view.education/edu_main.jsp").forward(request, response);
+		System.out.println("성공?");
 	}
 
 }
