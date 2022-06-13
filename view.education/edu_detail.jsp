@@ -64,13 +64,13 @@ window.onload() = function(){
 	if(result && id.substring(5).equals("AD")){ //관리자일 때
 		
 %>
-	<button>수정</button>
-	<button>삭제</button><br>
+	<input type=button value="강의 수정" id = "editEdu">
+	<input type=button value="강의 삭제" id = "deleteEdu"><br>
 <%
 	}else if(result && id.substring(5).equals("TR")&&id.equals(eduOne.getEmp_code())){ //훈련사 본인 글일 때
 %>
-	<button>수정</button>
-	<button>삭제</button><br>
+	<input type=button value="강의 수정" id = "editEdu">
+	<input type=button value="강의 삭제" id = "deleteEdu"><br>
 <%
 	}
 %>
