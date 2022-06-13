@@ -3,6 +3,8 @@ package kr.or.ddit.pitapet.education.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import kr.or.ddit.pitapet.education.dao.ClassDAO;
 import kr.or.ddit.pitapet.education.dao.ClassDAOImpl;
 import kr.or.ddit.pitapet.vo.ClassVO;
@@ -11,6 +13,7 @@ public class ClassServiceImpl implements ClassService {
 	
 	private ClassDAO dao;
 	private static ClassServiceImpl service;
+	static Logger logger = Logger.getLogger(ClassServiceImpl.class);
 	private ClassServiceImpl() {
 		dao = ClassDAOImpl.getInstance();
 	}
@@ -33,6 +36,8 @@ public class ClassServiceImpl implements ClassService {
 		
 		try {
 			classList = dao.getAllClass();
+			logger.trace("실행 dao 결과 : " + classList);
+			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
 			classList = null;
 			e.printStackTrace();
@@ -51,6 +56,9 @@ public class ClassServiceImpl implements ClassService {
 		
 		try {
 			classVO = dao.getClsInfo(cls_no);
+			logger.trace("매개변수 : " + cls_no);
+			logger.trace("실행 dao 결과 : " + classVO);
+			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
 			classVO = null;
 			e.printStackTrace();
@@ -71,6 +79,9 @@ public class ClassServiceImpl implements ClassService {
 		
 		try {
 			resultNum = dao.insertCls(vo);
+			logger.trace("매개변수 : " + vo);
+			logger.trace("실행 dao 결과 : " + resultNum);
+			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
 			resultNum = 0;
 			e.printStackTrace();
@@ -89,6 +100,9 @@ public class ClassServiceImpl implements ClassService {
 		
 		try {
 			resultNum = dao.appInsCls(vo);
+			logger.trace("매개변수 : " + vo);
+			logger.trace("실행 dao 결과 : " + resultNum);
+			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
 			resultNum = 0;
 			e.printStackTrace();
@@ -107,6 +121,9 @@ public class ClassServiceImpl implements ClassService {
 		
 		try {
 			resultNum = dao.modiCls(vo);
+			logger.trace("매개변수 : " + vo);
+			logger.trace("실행 dao 결과 : " + resultNum);
+			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
 			resultNum = 0;
 			e.printStackTrace();
