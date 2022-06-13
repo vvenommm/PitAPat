@@ -52,7 +52,12 @@ public class ClassDAOImpl implements ClassDAO {
 	// 3. 훈련사가 온라인 강좌 등록 신청
 	@Override
 	public int insertCls(ClassVO vo) throws SQLException {
-		return (int) smc.insert("class.insertCls", vo);
+		ClassVO result = (ClassVO)smc.insert("class.insertCls", vo);
+		int resultNum = 0;
+		if(result == null) {
+			resultNum = 1;
+		}
+		return resultNum; 
 	}
 	
 	
