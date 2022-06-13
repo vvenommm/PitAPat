@@ -56,7 +56,7 @@ public class Edu_Insert extends HttpServlet {
 		vo.setEmp_code("20007TR");
 		
 		//시퀀스로 만들고 이건 지우기
-		vo.setEdu_no(13);
+		vo.setEdu_no(18);
 		
 		System.out.println(vo);
 		
@@ -66,12 +66,14 @@ public class Edu_Insert extends HttpServlet {
 								
 		//결과값 받을 객체 생성 후 servlet 메소드 호출해서 결과값 받기
 		int resultNum = service.insertEdu(vo);
+		System.out.println(resultNum);
 							
 		//결과 값 받은 객체 request에 저장
 		request.setAttribute("resultNum", resultNum);
+		System.out.println("ㄴset attribute?");
 				
 		//view페이지로 이동
-		request.getRequestDispatcher("WEB-INF/view.education/edu_main.jsp").forward(request, response);
+		request.getRequestDispatcher("/Edu_Main.do").forward(request, response);
 		System.out.println("성공?");
 	}
 
