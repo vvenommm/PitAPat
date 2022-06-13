@@ -12,14 +12,16 @@ import kr.or.ddit.util.SqlMapClientFactory;
 public class EducationDAOImpl implements EducationDAO {
 	
 	private static EducationDAOImpl dao;
-	private EducationDAOImpl() {}
+	SqlMapClient smc = SqlMapClientFactory.getSqlMapClient(); 
+	private EducationDAOImpl() {
+//		smc = SqlMapClientFactory.getSqlMapClient();
+	}
 	
 	public static EducationDAOImpl getInstance() {
 		if(dao == null) dao = new EducationDAOImpl();
 		return dao;
 	}
 	
-	SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 	
 	
 	//////////////////////////////////////////////////////////////
@@ -58,7 +60,12 @@ public class EducationDAOImpl implements EducationDAO {
 	//4. 오프라인 강좌 신청 시 강아지 정보 입력
 	@Override
 	public int insertDogInfo(DogVO vo) throws SQLException {
-		return (int) smc.insert("edu.insertDogInfo", vo);
+		DogVO result = (DogVO)smc.insert("edu.insertDogInfo", vo);
+		int resultNum = 0;
+		if(result == null) {
+			resultNum = 1;
+		}
+		return resultNum;
 	}
 	
 	
@@ -84,7 +91,12 @@ public class EducationDAOImpl implements EducationDAO {
 	//7. 훈련사가 오프라인 강좌 등록 신청(INSERT)
 	@Override
 	public int insertEdu(EducationVO vo) throws SQLException {
-		return (int) smc.insert("edu.insertEdu", vo);
+		EducationVO result = (EducationVO)smc.insert("edu.insertEdu", vo);
+		int resultNum = 0;
+		if(result == null) {
+			resultNum = 1;
+		}
+		return resultNum;
 	}
 
 	
