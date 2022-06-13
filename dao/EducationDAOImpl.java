@@ -37,6 +37,16 @@ public class EducationDAOImpl implements EducationDAO {
 	//////////////////////////////////////////////////////////////
 	
 	
+	//1-1. 모든 오프라인 강좌 목록 조회 (관리자 페이지 강의 관리에서)
+	@Override
+	public List<EducationVO> getAllEdu2() throws SQLException {
+		return smc.queryForList("edu.getAllEdu2");
+	}
+	
+	
+	//////////////////////////////////////////////////////////////
+	
+	
 	//2. 오프라인 강좌 상세 조회
 	@Override
 	public EducationVO getEduInfo(int edu_no) throws SQLException {
@@ -117,6 +127,16 @@ public class EducationDAOImpl implements EducationDAO {
 	@Override
 	public int modiEdu(EducationVO vo) throws SQLException {
 		return smc.update("edu.modiEdu", vo);
+	}
+	
+	
+	//////////////////////////////////////////////////////////////
+	
+	
+	//10. 훈련사의 내 오프라인 강좌 보기
+	@Override
+	public List<EducationVO> getMyEdu(String emp_code) throws SQLException {
+		return smc.queryForList("edu.getMyEdu", emp_code);
 	}
 	
 	
