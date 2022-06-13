@@ -14,62 +14,53 @@
 <link rel="shortcut icon" type="image/x-icon" href="WEB-INF/images/logo.png"/>
 <title>피터펫(PIT-A-PET)</title>
 <%
-	//아이디 검증////////////////////////////////////////////////////
+	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
+
+//아이디 검증////////////////////////////////////////////////////
 // 	String id = (String)session.getAttribute("id");
+// if(id == null) id = "";
+// 	String id = "";
 	String id = "20007AD";
-	String regex = "[0-9]{1,4}[A-Z]{3}";
+// 	String id = "20007TR";
+// 	String id = "20006TR";
+	String regex = "[0-9]{1,5}[A-Z]{2}";
 	boolean result = Pattern.matches(regex, id);
 	////////////////////////////////////////////////////////////////
 %>
 
 <script type="text/javascript">
-$(function(){
-	$('#intoCart').on('click', function(){
-		eduOne = <%=request.getAttribute("eduOne")%>;
+window.onload() = function(){
+	$('#getInCart').on('click', function(){
 		
-<%
-		if(!result && id == null){
-%>
+		edu_no = <%=eduOne.getEdu_no()%>;
+		mem_id = <%=id%>;
+		
+		if(mem_id.equals("")){
 			alert('로그인 후 이용 가능합니다.');
-// 			location.href = "http://localhost/PitAPet/hom_login.do"
-<%		
 		}else{
-%>
-			mem_id = <%=id%>
 			$.ajax({
 				url : 'http://localhost/PitAPet/IntoCart.do',
 				type : 'post',
-				data : {"eduOne" : eduOne, "mem_id" : mem_id},
-				dataType : 'json',
+				data : {"edu_no" : edu_no, "mem_id" : mem_id},
 				success : function(res){
-				alert('바구니에 담기 성공!');
-				}
-			})
-<%		
+					alert("장바구니에 담기 성공!");
+				},
+				error : function(xhr){
+					alert("상태 : " + xhr.status);
+				},
+				dataType : 'json'
+			});
 		}
-%>
 	})
-// 	$('#back').('click', function(){
-// 		$.ajax({
-// 			url : '',
-// 			type : 'post',
-// 			data : '',
-// 			dataType : 'json',
-// 			success : function(res){
-				
-// 			}
-// 		})
-// 	})
-})
+}
 </script>
 
 </head>
 <body>
 <%
 	System.out.println("edu_detail.jsp");
-	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
-	////////////////////////////////// 관리자일 때 수정, 삭제 버튼 나오게. 훈련사는 수정삭제 자기 글일 때 나오게.
 	
+	System.out.println(id + "" + result);
 	if(result && id.substring(5).equals("AD")){ //관리자일 때
 		
 %>
@@ -96,7 +87,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td colspan="4">
-			<p style="text-align : center;"><%=eduOne.getEdu_title()%></p>
+			<%=eduOne.getEdu_title()%>
 		</td>
 		<td></td>
 		<td></td>
@@ -104,45 +95,42 @@ $(function(){
 	</tr>
 	<tr>
 		<td colspan="4">
-			<p style="text-align : right;">훈련사 <%=eduOne.getEmp_name()%></p><br><hr>
+			훈련사 <%=eduOne.getEmp_name()%>
 		</td>
 		<td></td>
 		<td></td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>
-			<p style="text-align : center;"><%=eduOne.getEdu_date()%></p>
+		<td colspan="2">
+		<%=eduOne.getEdu_date()%>
 		</td>
 		<td>
-			<p style="text-align : center;"><%=eduOne.getEdu_time()%></p>
+		<%=eduOne.getEdu_time()%>
 		</td>
 		<td>
-			<p style="text-align : center;"><%=eduOne.getEdu_place()%></p>
-		</td>
-		<td>
-			<p style="text-align : center;">모집인원 : <%=eduOne.getEdu_limit()%>명</p>
+			<%=eduOne.getEdu_place()%>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="4">
-			<p style="text-align : center;"><%=eduOne.getEdu_content()%></p>
+			<%=eduOne.getEdu_content()%>
 		</td>
 		<td></td>
 		<td></td>
 		<td></td>
 	</tr>
 	<tr>
-		<td colspan="4">
-		<p style="text-align : center;"><%=eduOne.getEdu_price()%>원</p>
+		<td colspan="2">
+			모집인원 : <%=eduOne.getEdu_limit()%>명
 		</td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td colspan="2">
+			<%=eduOne.getEdu_price()%>원
+		</td>
 	</tr>
 </table>
 	</div><br>
-	<button id="intoCart">장바구니 담기</button>
+	<input type="button" id="getInCart" value="장바구니 담기">
 	<button id='eduList'>목록 보기</button>
 </body>
 </html>
