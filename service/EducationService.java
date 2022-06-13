@@ -1,5 +1,6 @@
 package kr.or.ddit.pitapet.education.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import kr.or.ddit.pitapet.vo.DogVO;
@@ -18,6 +19,18 @@ public interface EducationService {
 	 * @return 모든 강좌 정보가 담긴 List 반환
 	 */
 	public List<EducationVO> getAllEdu();
+	
+	
+	//////////////////////////////////////////////////////////////////
+
+	
+	//1-1. 모든 오프라인 강좌 목록 조회
+	/**
+	 * 모든 오프라인 강좌(교육)들 목록 조회
+	 * @return 모든 강좌 정보가 담긴 List 반환
+	 */
+	public List<EducationVO> getAllEdu2();
+	
 	
 	//////////////////////////////////////////////////////////////////
 	
@@ -112,6 +125,20 @@ public interface EducationService {
 	
 	
 	//////////////////////////////////////////////////////////////////
+
+	
+	//10. 훈련사의 내 오프라인 강좌 보기
+	/**
+	 * 훈련사가 내 강좌 보기 클릭 시 본인 강의만 목록으로 출력
+	 * @param emp_code 훈련사 본인의 아이디이자 사번
+	 * @return 본인의 강의를 담고 있는 List<EducationVO) 객체
+	 * @throws SQLException
+	 */
+	public List<EducationVO> getMyEdu (String emp_code);
+	
+	
+	//////////////////////////////////////////////////////////////////
+	
 	
 	//10. 교육 일정 조회(옵션)
 	
