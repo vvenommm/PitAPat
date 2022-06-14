@@ -30,15 +30,31 @@
 %>
 <script type="text/javascript">
 $(function(){
-	code = "";
-	$.each(clsOneList, function(i, v){
-		code += '<tr colspan="6"><td>' + v.get(i).cls_title + '</td></tr>';
-		
-		
-		
-		
+	
+	//훈련사의 강의 수정
+	$('#editCls').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
 	})
-	$('#tab').html(code);
+	
+	//훈련사의 강의 삭제
+	$('#editCls').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
+	})
+	
+	//훈련사가 등록&삭제 신청한 강의 승인
+	$('#editCls').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Apprval.do?cls=status'승인'"
+	})
+	
+	//훈련사가 등록&삭제 신청한 강의 거절
+	$('#editCls').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Apprval.do?cls_status='거절'"
+	})
+	
+	//훈련사가 등록&삭제 신청한 강의 삭제
+	$('#editCls').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
+	})
 	
 	
 	
@@ -54,7 +70,7 @@ $(function(){
 </script>
 </head>
 <body>
-여기는 cls_detail.jsp
+<div>you are on cls_detail.jsp</div>
 
 <%
 	System.out.println("cls_detail.jsp");
@@ -116,7 +132,5 @@ $(function(){
 </div><br>
 
 	<input type="button" id="getInCart" value="장바구니 담기">
-	<button id='eduList'>목록 보기</button>
 
-</body>
-</html>
+<jsp:include page="../../include/footer.jsp" ></jsp:include>
