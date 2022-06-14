@@ -11,6 +11,7 @@ import kr.or.ddit.util.SqlMapClientFactory;
 public class ClassDAOImpl implements ClassDAO {
 	
 	private static ClassDAOImpl dao;
+	SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 	private ClassDAOImpl() {}
 	
 	public static ClassDAOImpl getInstance() {
@@ -18,7 +19,6 @@ public class ClassDAOImpl implements ClassDAO {
 		return dao;
 	}
 	
-	SqlMapClient smc = SqlMapClientFactory.getSqlMapClient();
 	
 	
 	//온라인 강의/////////////////////////////////////////////////////////
@@ -31,6 +31,24 @@ public class ClassDAOImpl implements ClassDAO {
 	@Override
 	public List<ClassVO> getAllClass() throws SQLException {
 		return smc.queryForList("class.getAllClass");
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////
+
+	
+	//1-1. cls_main.jsp에서 모든 패키지 목록 조회
+	public List<ClassVO> getAllPack() throws SQLException {
+		return smc.queryForList("class.getAllPack");
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////
+
+	
+	//1-2. cls_main.jsp에서 모든 패키지 목록에서 각 패키지의 총 강의 수 조회
+	public List<ClassVO> getClsCount() throws SQLException {
+		return smc.queryForList("class.getClsCount");
 	}
 	
 	
