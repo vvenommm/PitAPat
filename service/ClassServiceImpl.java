@@ -47,6 +47,44 @@ public class ClassServiceImpl implements ClassService {
 	
 	
 	//////////////////////////////////////////////////////////////////
+
+	
+	//1-1. cls_main.jsp에서 모든 패키지 목록 조회
+	public List<ClassVO> getAllPack() {
+		List<ClassVO> packList = null;
+		
+		try {
+			packList = dao.getAllPack();
+			logger.trace("실행 dao 결과 : " + packList);
+			logger.info("작업 성공~~~");
+		} catch (SQLException e) {
+			packList = null;
+			e.printStackTrace();
+		}
+		return packList;
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////
+
+	
+	//1-2. cls_main.jsp에서 모든 패키지 목록에서 각 패키지의 총 강의 수 조회
+	public List<ClassVO> getClsCount() {
+		List<ClassVO> countList = null;
+		
+		try {
+			countList = dao.getAllPack();
+			logger.trace("실행 dao 결과 : " + countList);
+			logger.info("작업 성공~~~");
+		} catch (SQLException e) {
+			countList = null;
+			e.printStackTrace();
+		}
+		return countList;
+	}
+	
+
+	//////////////////////////////////////////////////////////////////
 	
 	
 	// 2. 온라인 강좌 상세 조회
