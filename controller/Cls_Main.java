@@ -32,12 +32,15 @@ public class Cls_Main extends HttpServlet {
 		ClassService service = ClassServiceImpl.getInstance();
 
 		// 결과값 받을 객체 생성 후 servlet 메소드 호출해서 결과값 받기
-		List<ClassVO> clsList = service.getAllClass();
+		List<ClassVO> packList = service.getAllPack();
+		List<ClassVO> countList = service.getClsCount();
 		
 		System.out.println("cls_main.java");
 		
 		//결과 값 받은 객체 request에 저장
-		request.setAttribute("clsList", clsList);
+		request.setAttribute("packList", packList);
+		request.setAttribute("countList", countList);
+		System.out.println("총 강의 : " + countList);
 		
 		//view페이지로 이동
 		request.getRequestDispatcher("WEB-INF/view.class/cls_main.jsp").forward(request, response);
