@@ -19,7 +19,8 @@ $(function(){
 </head>
 
 <%
-	List<ClassVO> clsList = (List<ClassVO>)request.getAttribute("clsList");
+	List<ClassVO> packList = (List<ClassVO>)request.getAttribute("packList");
+	List<ClassVO> countList = (List<ClassVO>)request.getAttribute("countList");
 // 	String id = (String)session.getAttribute("id");
 // 	String id = "20007AD";
 // 	String id = "20007TR";
@@ -59,12 +60,12 @@ $(function(){
 
 <div id="clsList" >
 <%
-	if(clsList != null && clsList.size() > 0){
+	if(packList != null && packList.size() > 0){
 // 	if(eduList == null || eduList.size() == 0){
 %>
 <%
 		int i = 1;
-		for(ClassVO vo : clsList){
+		for(ClassVO vo : packList){
 %>
 		<div id="clsDiv">
 			<table border="1" class="clsOne" >
@@ -74,28 +75,33 @@ $(function(){
 					<p style="display : none"><%=vo.getCls_no()%></p>
 				</td>
 				<td>
-					<a href="/PitAPet/Edu_Detail.do?edu_no=<%=vo.getCls_no()%>" ><%=vo.getCls_subject()%></a></p>
+					<a href="/PitAPet/Edu_Detail.do?edu_no=<%=vo.getCls_no()%>" ><%=vo.getCls_subject()%></a>
 				</td>
+				
+				<%
+					for(ClassVO vo2 : countList){
+						if(vo2.getCls_subject().equals(vo.getCls_subject())){
+						
+				%>
+							<td style="text-align : right;">총 <%=vo2.getCls_count()%>강</td>
+				<%	
+					}
+						}
+				%>
 			</tr>
 			<tr>
-				<td></td>
-				<td>강사 : <%=vo.getEmp_code()%></td>
+				<td colspan="2" style="text-align : right;">강사 : <%=vo.getEmp_name()%></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td>총 <%=vo.getCls_count()%>강</td>
+<!-- 				<td></td> -->
+				<td colspan="2"><%=vo.getCls_content()%></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><%=vo.getCls_content()%></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><%=vo.getCls_price()%>원</td>
+				<td colspan="2" style="text-align : right;"><%=vo.getCls_price()%>원</td>
 			</tr>
 			</table>
 		</div>
-		<br><br><br>
+		<br>
 <%
 		}
 %>
