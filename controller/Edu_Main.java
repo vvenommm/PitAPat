@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.pitapet.education.service.EducationService;
 import kr.or.ddit.pitapet.education.service.EducationServiceImpl;
 import kr.or.ddit.pitapet.vo.EducationVO;
+import kr.or.ddit.pitapet.vo.MemberVO;
 
 @WebServlet("/Edu_Main.do")
 public class Edu_Main extends HttpServlet {
@@ -24,6 +26,10 @@ public class Edu_Main extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
+		
+		HttpSession session = request.getSession();
+		MemberVO loginVO = (MemberVO)session.getAttribute("loginMember");
+		String id = loginVO.getMem_id();
 		
 		//로그인 정보 가져오기
 //		String mem_id = request.getParameter("id");
