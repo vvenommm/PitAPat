@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import kr.or.ddit.pitapet.education.service.ClassService;
 import kr.or.ddit.pitapet.education.service.ClassServiceImpl;
 import kr.or.ddit.pitapet.vo.ClassVO;
+import kr.or.ddit.pitapet.vo.MemberVO;
 
 @WebServlet("/Cls_Main.do")
 public class Cls_Main extends HttpServlet {
@@ -26,7 +27,10 @@ public class Cls_Main extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		HttpSession session = request.getSession();
-		session.setAttribute("id", "20006TR");
+//		MemberVO memVO = (MemberVO) session.getAttribute("loginMember");
+		MemberVO memVO = new MemberVO();
+		memVO.setMem_id("20006TR");
+		session.setAttribute("loginMember", memVO);
 
 		// service 객체 얻어오기
 		ClassService service = ClassServiceImpl.getInstance();
