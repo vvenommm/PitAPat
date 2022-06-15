@@ -125,25 +125,7 @@ public interface CartDAO {
 	//////////////////////////////////////////////////////////////////
 	
 	
-	// 6. 결제하기
-	// 6-1. 전체 결제/////////////////////////////////////////////////
-	/**
-	 * 현 장바구니 출력 상품(미결인 상태) 전체 구매
-	 * @param cartVO 구매할 장바구니 객체
-	 * @return 성공 : 1, 실패 : 0
-	 * @throws SQLException
-	 */
-	public int payAll(CartVO cartVO) throws SQLException;
-	
-	
-	// 6-2. 선택 결제/////////////////////////////////////////////////
-	/**
-	 * 현 장바구니 출력 상품(미결인 상태) 일부 구매
-	 * @param cartVO
-	 * @return 성공 : 1, 실패 : 0
-	 * @throws SQLException
-	 */
-	public int payPart(CartVO cartVO) throws SQLException;
+	// 6. 
 	
 	
 	//////////////////////////////////////////////////////////////////
