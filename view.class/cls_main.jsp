@@ -1,14 +1,26 @@
+<%@page import="kr.or.ddit.pitapet.vo.MemberVO"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="kr.or.ddit.pitapet.vo.ClassVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- <jsp:include page="../../include/header.jsp" ></jsp:include> --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="../images/logo.png"/>
-<title>피터펫(PIT-A-PET)</title>
+</head>
+<%
+	List<ClassVO> packList = (List<ClassVO>)request.getAttribute("packList");
+	List<ClassVO> countList = (List<ClassVO>)request.getAttribute("countList");
+	MemberVO memVO = (MemberVO)session.getAttribute("loginMember");
+	String id = memVO.getMem_id();
+// 	String id = "20007AD";
+// 	String id = "20007TR";
+// 	String id = "20006TR";
+	String regex = "[0-9]{1,5}[A-Z]{2}";
+	boolean result = Pattern.matches(regex, id);
+%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -17,19 +29,9 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-<%
-	List<ClassVO> packList = (List<ClassVO>)request.getAttribute("packList");
-	List<ClassVO> countList = (List<ClassVO>)request.getAttribute("countList");
-// 	String id = (String)session.getAttribute("id");
-// 	String id = "20007AD";
-// 	String id = "20007TR";
-	String id = "20006TR";
-	String regex = "[0-9]{1,5}[A-Z]{2}";
-	boolean result = Pattern.matches(regex, id);
-%>
 <script type="text/javascript">
 $(function(){
-	//훈련사의 강의 등록
+	//훈련사의 강의 등록하러 가기
 	$('#insertCls').on('click', function(){
 		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
 	})
@@ -76,7 +78,11 @@ $(function(){
 	})
 })
 </script>
-</head>
+<style>
+nav{
+	padding-bottom: 500px;
+}
+</style>
 <body>
 
 <h3>온라인 강의</h3>
@@ -150,7 +156,6 @@ $(function(){
 <%
 	}
 %>
-
-
 </body>
 </html>
+<jsp:include page="../../include/footer.jsp" ></jsp:include>
