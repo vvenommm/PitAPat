@@ -40,7 +40,7 @@ $(function(){
 		let code = '';
 		code += '<div id ="added">';
 		code += '<label>개별 강의 제목</label>';
-		code += '<input type="text" id="clsSubject' + num + '" name="cls_subject" class="clsInsert"><br>';		
+		code += '<input type="text" id="clsTitle' + num + '" name="cls_title" class="clsInsert"><br>';		
 		code += '<label>해당 강의 링크</label>';
 		code += '<input type="text" id="clsPath' + num + '" name="cls_path" class="clsInsert"><br>';
 		code += '</div>';
@@ -61,26 +61,19 @@ $(function(){
 		//배열 생성
 		arr = new Array(num);
 
-// 		//다차원 배열 생성
-// 		for (var i = 0; i < arr.length; i++) {
-// 		    arr[i] = new Array(6);
-// 		}
-		
-		
-		let cls_title = $('#clsTitle').val();
+		let cls_subject = $('#clsSubject').val();
 		let cls_content = $('#clsContent').val();
 		let cls_class = $('#clsClass').val();
 		let cls_fee = $('#clsFee').val();
-		let cls_subcode = $('#clsSubcode').val();
 		
 		for(i = 0; i < num; i++){
-			let subject = "#clsSubject" + (i+1);
+			let title = "#clsTitle" + (i+1);
 			let path = "#clsPath" + (i+1);
 			
-			let cls_subject = $(subject).val();
+			let cls_title = $(title).val();
 			let cls_path = $(path).val();
 			
-			arr[i] = "{'cls_title': " + cls_title + ", 'cls_content':" +  cls_content + ", 'cls_subcode' :" + cls_subcode + ", 'cls_fee':" +  cls_fee + ", 'cls_subject':" +  cls_subject + ", 'cls_path':" +  cls_path + " }";
+			arr[i] = "{'cls_subject': \"" + cls_subject + "\", 'cls_content':\"" +  cls_content + "\", 'cls_fee':" +  cls_fee + ", 'cls_title':\"" +  cls_title + "\", 'cls_path':\"" +  cls_path + "\" }";
 		}
 		
 		$.ajax({
@@ -88,7 +81,7 @@ $(function(){
 			type : 'post',
 			data : {"arr" : arr},
 			success : function(res){
- 				alert('등록 성공!');
+ 				alert(res.sw);
  				location.href="<%=request.getContextPath()%>/Cls_Main.do";
 			},
 			error : function(xhr){
@@ -96,33 +89,26 @@ $(function(){
 			},
 			dataType : 'json'
 		})
-		
-		
 	})
-	
-	
-	
-	
-	
 })
 </script>
 <body>
 
 	<div id='cls_insert_div'>
 		<label>교육 주제(패키지명)</label>
-		<input type='text' id='clsTitle' name='cls_title' class="clsInsert"><br>
+		<input type='text' id='clsSubject' name='cls_subject' class="clsInsert"><br>
 
 		<label>교육 내용</label>
 		<input type='text' id='clsContent' name='cls_content' class="clsInsert"><br>
 
-		<label>교육 등급</label>
-		<select class="clsInsert" id='clsSubcode' name='cls_subcode'>
-			<option value="a">초급</option>
-			<option value="i">중급</option>
-			<option value="f">고급</option>
-			<option value="s">심화</option>
-			<option value="z">기타</option>
-		</select><br>
+<!-- 		<label>교육 등급</label> -->
+<!-- 		<select class="clsInsert" id='clsSubcode' name='cls_subcode'> -->
+<!-- 			<option value="a">초급</option> -->
+<!-- 			<option value="i">중급</option> -->
+<!-- 			<option value="f">고급</option> -->
+<!-- 			<option value="s">심화</option> -->
+<!-- 			<option value="z">기타</option> -->
+<!-- 		</select><br> -->
 
 		<label>교육 금액</label>
 		<input type='text' id='clsFee' name='cls_fee' class="clsInsert"><br>
