@@ -26,6 +26,9 @@
 		width: 300px;
 	}
 </style>
+<%
+	
+%>
 <script type="text/javascript">
 $(function(){
 	
@@ -34,29 +37,22 @@ $(function(){
 	$('#btn_plus').on('click', function(){
 		num = num+1;
 		
-		code = '';
+		let code = '';
+		code += '<div id ="added">';
 		code += '<label>개별 강의 제목</label>';
-		code += '<input type="text" id="cls_title' + num + '" name="cls_title" class="clsInsert"><br>';		
+		code += '<input type="text" id="clsSubject' + num + '" name="cls_subject" class="clsInsert"><br>';		
 		code += '<label>해당 강의 링크</label>';
-		code += '<input type="text" id="cls_link' + num + '" name="cls_link" class="clsInsert"><br>';
+		code += '<input type="text" id="clsPath' + num + '" name="cls_path" class="clsInsert"><br>';
+		code += '</div>';
 		
-		alert(num);
-		$('#clsLink').append(code);
+// 		alert(num);
+		$('#clsAdd').append(code);
 	})
 	
 	//강의와 링크 삭제하기
-	num = 0;
-	$('#btn_plus').on('click', function(){
-		num = num+1;
-		
-		code = '';
-		code += '<label>개별 강의 제목</label>';
-		code += '<input type="text" id="cls_title' + num + '" name="cls_title" class="clsInsert"><br>';		
-		code += '<label>해당 강의 링크</label>';
-		code += '<input type="text" id="cls_link' + num + '" name="cls_link" class="clsInsert"><br>';
-		
-		alert(num);
-		$('#clsLink').append(code);
+	$('#btn_minus').on('click', function(){
+		prt = $(this).parent().find('#added').remove();
+		num = num-1;
 	})
 	
 	//입력값 ajax로 insert
@@ -71,22 +67,35 @@ $(function(){
 // 		}
 		
 		
-		cls_title = $('#clsTitle').val();
-		cls_content = $('#clsContent').val();
-		cls_class = $('#clsClass').val();
-		cls_fee = $('#clsFee').val();
+		let cls_title = $('#clsTitle').val();
+		let cls_content = $('#clsContent').val();
+		let cls_class = $('#clsClass').val();
+		let cls_fee = $('#clsFee').val();
+		let cls_subcode = $('#clsSubcode').val();
 		
 		for(i = 0; i < num; i++){
-			title = "#cls_title" + (i+1);
-			link = "#cls_link" + (i+1);
+			let subject = "#clsSubject" + (i+1);
+			let path = "#clsPath" + (i+1);
 			
-			cls_title = $(title).val();
-			cls_link = $(link).val();
+			let cls_subject = $(subject).val();
+			let cls_path = $(path).val();
 			
-			arr[i] = [['cls_title', cls_title], ['cls_content', cls_content], ['cls_class', cls_class], ['cls_fee', cls_fee], ['cls_title', cls_title], ['cls_link', cls_link]];
+			arr[i] = "{'cls_title': " + cls_title + ", 'cls_content':" +  cls_content + ", 'cls_subcode' :" + cls_subcode + ", 'cls_fee':" +  cls_fee + ", 'cls_subject':" +  cls_subject + ", 'cls_path':" +  cls_path + " }";
 		}
 		
-		
+		$.ajax({
+			url : '<%=request.getContextPath()%>/Cls_Insert.do',
+			type : 'post',
+			data : {"arr" : arr},
+			success : function(res){
+ 				alert('등록 성공!');
+ 				location.href="<%=request.getContextPath()%>/Cls_Main.do";
+			},
+			error : function(xhr){
+				alert('상태 : ' + xhr.status);
+			},
+			dataType : 'json'
+		})
 		
 		
 	})
@@ -107,7 +116,7 @@ $(function(){
 		<input type='text' id='clsContent' name='cls_content' class="clsInsert"><br>
 
 		<label>교육 등급</label>
-		<select class="clsInsert" id='clsClass' name='cls_class'>
+		<select class="clsInsert" id='clsSubcode' name='cls_subcode'>
 			<option value="a">초급</option>
 			<option value="i">중급</option>
 			<option value="f">고급</option>
@@ -118,11 +127,9 @@ $(function(){
 		<label>교육 금액</label>
 		<input type='text' id='clsFee' name='cls_fee' class="clsInsert"><br>
 		
-		<button id="btn_plus" value="plus">추가</button>
-		<button id="btn_minus" value="minus">삭제</button>
-
-		<div id="clsLink" class="cls_link">
-			
+		<div id="clsAdd" class="cls_add">
+			<button id="btn_plus" value="plus">추가</button>
+			<button id="btn_minus" value="minus">삭제</button><br>
 		</div>
 
 		<button id='clsSubmit'>등록</button>
