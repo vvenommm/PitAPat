@@ -33,28 +33,29 @@ $(function(){
 	
 	//훈련사의 강의 수정
 	$('#editCls').on('click', function(){
-		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
+		location.href = "<%=request.getContextPath()%>/Cls_Edit.do"
 	})
 	
 	//훈련사의 강의 삭제
-	$('#editCls').on('click', function(){
+	$('#deleteCls').on('click', function(){
+		
 		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
+		
+		let code = "";
+	    code += '<select id="clsStatus">';
+	    code += '<option value="등록">등록</option>';
+	    code += '<option value="삭제">삭제</option>';
+	    code += '</select><br>';
+	    
+	    prt = document.getElementById('clsOne');
+	    alert(prt);
+	    
+	    $(code).appendTo($(prt));
 	})
 	
-	//훈련사가 등록&삭제 신청한 강의 승인
-	$('#editCls').on('click', function(){
-		location.href = "<%=request.getContextPath()%>/Cls_Apprval.do?cls=status'승인'"
-	})
+
 	
-	//훈련사가 등록&삭제 신청한 강의 거절
-	$('#editCls').on('click', function(){
-		location.href = "<%=request.getContextPath()%>/Cls_Apprval.do?cls_status='거절'"
-	})
 	
-	//훈련사가 등록&삭제 신청한 강의 삭제
-	$('#editCls').on('click', function(){
-		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
-	})
 	
 	
 	
@@ -133,4 +134,4 @@ $(function(){
 
 	<input type="button" id="getInCart" value="장바구니 담기">
 
-<jsp:include page="../../include/footer.jsp" ></jsp:include>
+<!--<jsp:include page="../../include/footer.jsp" ></jsp:include>-->
