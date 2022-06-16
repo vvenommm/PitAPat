@@ -6,6 +6,7 @@ import java.util.List;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 import kr.or.ddit.pitapet.vo.ClassVO;
+import kr.or.ddit.pitapet.vo.MemberVO;
 import kr.or.ddit.util.SqlMapClientFactory;
 
 public class ClassDAOImpl implements ClassDAO {
@@ -57,8 +58,8 @@ public class ClassDAOImpl implements ClassDAO {
 	
 	// 2. 온라인 강좌 상세 조회
 	@Override
-	public ClassVO getClsInfo(int cls_no) throws SQLException {
-		return (ClassVO) smc.queryForObject("class.getClsInfo", cls_no);
+	public List<ClassVO> getClsInfo(String cls_subject) throws SQLException {
+		return smc.queryForList("class.getClsInfo", cls_subject);
 	}
 	
 	
@@ -76,6 +77,15 @@ public class ClassDAOImpl implements ClassDAO {
 			resultNum = 1;
 		}
 		return resultNum; 
+	}
+	
+	@Override
+	public int getClsNo() throws SQLException {
+		int resultNum = (int) smc.queryForObject("class.getClsNo");
+//		if(resultNum == null) {
+//			resultNum = 0;
+//		}
+		return resultNum+1;
 	}
 	
 	
@@ -96,6 +106,16 @@ public class ClassDAOImpl implements ClassDAO {
 	@Override
 	public int modiCls(ClassVO vo) throws SQLException {
 		return smc.update("class.modiCls", vo);
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////
+	
+	
+	// 6. 훈련사의 내 온라인 강좌 보기
+	@Override
+	public List<ClassVO> getMyCls(MemberVO vo) throws SQLException {
+		return smc.queryForList("class.getMyCls", vo);
 	}
 	
 	
