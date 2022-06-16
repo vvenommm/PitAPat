@@ -24,19 +24,21 @@ public class Cls_Detail extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		//edu_main.jsp에서 클릭한 교육글번호 값 변수에 담기
-		String cls_subcode = (String)request.getParameter("cls_subcode");
-//		String cls_subcode = "a001";
-		System.out.println("Cls_Detail.java의 cls_subcode : " + cls_subcode);
+		String cls_subject = (String)request.getParameter("cls_subject");
+		int cls_count = Integer.parseInt(request.getParameter("cls_count"));
+		System.out.println("Cls_Detail.java의 cls_subject : " + cls_subject);
+		System.out.println("Cls_Detail.java의 cls_count : " + cls_count);
 		
 		//서비스 객체 생성
 		ClassService service = ClassServiceImpl.getInstance();
 		
 		//결과값 받기 위한 객체 생성 후 값 받기
-		List<ClassVO> clsOne = service.getClsInfo(cls_subcode);
+		List<ClassVO> clsOne = service.getClsInfo(cls_subject);
 		System.out.println("Cls detail.java의 service로 받아온 객체 " + clsOne);
 		
 		//결과값 저장한 객체 request에 저장
 		request.setAttribute("clsOne", clsOne);
+		request.setAttribute("cls_count", cls_count);
 		
 		//view페이지로 이동
 		request.getRequestDispatcher("WEB-INF/view.class/cls_detail.jsp").forward(request, response);
