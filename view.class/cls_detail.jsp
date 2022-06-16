@@ -22,9 +22,10 @@
 // 	String id = (String)session.getAttribute("id");
 // if(id == null) id = "";
 // 	String id = "";
-	String id = "20007AD";
+// 	String id = "20007AD";
 // 	String id = "20007TR";
 // 	String id = "20006TR";
+	String id = (String)request.getAttribute("id");
 	String regex = "[0-9]{1,5}[A-Z]{2}";
 	boolean result = Pattern.matches(regex, id);
 	////////////////////////////////////////////////////////////////
@@ -34,7 +35,7 @@ $(function(){
 	
 	//훈련사의 강의 수정
 	$('#editCls').on('click', function(){
-		location.href = "<%=request.getContextPath()%>/Cls_Edit.do"
+		location.href = "<%=request.getContextPath()%>/Cls_Edit.do?cls_subject=<%=clsOneList.get(0).getCls_subject()%>&cls_count=<%=cls_count%>";
 	})
 	
 	//훈련사의 강의 삭제
@@ -44,6 +45,11 @@ $(function(){
 			location.href = "<%=request.getContextPath()%>/Cls_Delete.do?cls_subject=<%=clsOneList.get(0).getCls_subject()%>&cls_count=<%=cls_count%>";
 		}
 		
+	})
+
+	//다시 글목록으로
+	$('#backToList').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Main.do";
 	})
 	
 })
@@ -68,6 +74,8 @@ $(function(){
 <%
 	}
 %>
+	
+	<input type=button value="목록 보기" id = "backToList"><br>
 	<div class="clsOne" style="display:inline-block">
 		<p style="display : none" id = "cls_no"><%=clsOneList.get(0).getCls_no()%></p>
 
