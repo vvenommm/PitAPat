@@ -16,6 +16,7 @@
 <title>피터펫(PIT-A-PET)</title>
 <%
 	List<ClassVO> clsOneList = (List<ClassVO>)request.getAttribute("clsOne");
+	int cls_count = (int)request.getAttribute("cls_count");
 
 //아이디 검증////////////////////////////////////////////////////
 // 	String id = (String)session.getAttribute("id");
@@ -128,7 +129,7 @@ $(function(){
 		}
 	}
 	%>
-	<tr><td colspan="6" style="text-align : right;">총 <%=clsOneList.get(0).getCls_count() %>강</td></tr>
+	<tr><td colspan="6" style="text-align : right;">총 <%=cls_count%>강</td></tr>
 </table>
 </div><br>
 
