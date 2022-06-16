@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import kr.or.ddit.pitapet.education.dao.ClassDAO;
 import kr.or.ddit.pitapet.education.dao.ClassDAOImpl;
 import kr.or.ddit.pitapet.vo.ClassVO;
+import kr.or.ddit.pitapet.vo.MemberVO;
 
 public class ClassServiceImpl implements ClassService {
 	
@@ -73,7 +74,7 @@ public class ClassServiceImpl implements ClassService {
 		List<ClassVO> countList = null;
 		
 		try {
-			countList = dao.getAllPack();
+			countList = dao.getClsCount();
 			logger.trace("실행 dao 결과 : " + countList);
 			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
@@ -89,19 +90,19 @@ public class ClassServiceImpl implements ClassService {
 	
 	// 2. 온라인 강좌 상세 조회
 	@Override
-	public ClassVO getClsInfo(int cls_no) {
-		ClassVO classVO = null;
+	public List<ClassVO> getClsInfo(String cls_subject) {
+		List<ClassVO> clsOneList = null;
 		
 		try {
-			classVO = dao.getClsInfo(cls_no);
-			logger.trace("매개변수 : " + cls_no);
-			logger.trace("실행 dao 결과 : " + classVO);
+			clsOneList = dao.getClsInfo(cls_subject);
+			logger.trace("매개변수 : " + cls_subject);
+			logger.trace("실행 dao 결과 : " + clsOneList);
 			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
-			classVO = null;
+			clsOneList = null;
 			e.printStackTrace();
 		}
-		return classVO;
+		return clsOneList;
 	}
 	
 	
@@ -118,6 +119,21 @@ public class ClassServiceImpl implements ClassService {
 		try {
 			resultNum = dao.insertCls(vo);
 			logger.trace("매개변수 : " + vo);
+			logger.trace("실행 dao 결과 : " + resultNum);
+			logger.info("작업 성공~~~");
+		} catch (SQLException e) {
+			resultNum = 0;
+			e.printStackTrace();
+		}
+		return resultNum;
+	}
+	
+	@Override
+	public int getClsNo() {
+		int resultNum = 0;
+		
+		try {
+			resultNum = dao.getClsNo();
 			logger.trace("실행 dao 결과 : " + resultNum);
 			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
@@ -173,6 +189,25 @@ public class ClassServiceImpl implements ClassService {
 	//////////////////////////////////////////////////////////////////
 	
 	
+	// 6. 훈련사의 내 온라인 강좌 보기
+	@Override
+	public List<ClassVO> getMyCls(MemberVO vo) {
+		List<ClassVO> myClsList = null;
+		
+		try {
+			myClsList = dao.getMyCls(vo);
+			logger.trace("매개변수 : " + vo);
+			logger.trace("실행 dao 결과 : " + myClsList);
+			logger.info("작업 성공~~~");
+		} catch (SQLException e) {
+			myClsList = null;
+			e.printStackTrace();
+		}
+		return myClsList;
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////
 	// 10. 교육 일정 조회(옵션)
 	
 	
