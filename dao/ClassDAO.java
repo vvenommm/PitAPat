@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kr.or.ddit.pitapet.vo.ClassVO;
+import kr.or.ddit.pitapet.vo.MemberVO;
 
 public interface ClassDAO {
 	
@@ -56,7 +57,7 @@ public interface ClassDAO {
 	 * @return 선택한 강좌 정보를 담은 ClassVO
 	 * @throws SQLException
 	 */
-	public ClassVO getClsInfo (int cls_no) throws SQLException;
+	public List<ClassVO> getClsInfo (String cls_subject) throws SQLException;
 	
 	
 	//////////////////////////////////////////////////////////////////
@@ -72,6 +73,8 @@ public interface ClassDAO {
 	 * @throws SQLException
 	 */
 	public int insertCls (ClassVO vo) throws SQLException;
+	
+	public int getClsNo () throws SQLException;
 
 	
 	//////////////////////////////////////////////////////////////////
@@ -99,6 +102,19 @@ public interface ClassDAO {
 	 */
 	public int modiCls (ClassVO vo) throws SQLException;
 
+	
+	//////////////////////////////////////////////////////////////////
+	
+	
+	// 6. 훈련사의 내 온라인 강좌 보기
+	/**
+	 * 훈련사가 내 강좌 보기 클릭 시 본인 강의만 목록으로 출력
+	 * @param emp_id 훈련사 본인의 아이디이자 사번
+	 * @return 본인의 강의를 담고 있는 List<ClassVO) 객체
+	 * @throws SQLException
+	 */
+	public List<ClassVO> getMyCls (MemberVO vo) throws SQLException;
+	
 	
 	//////////////////////////////////////////////////////////////////
 	
