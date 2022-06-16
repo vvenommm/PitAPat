@@ -114,8 +114,8 @@ nav{
 
 <div id="clsList" >
 <%
+System.out.println(packList);
 	if(packList != null && packList.size() > 0){
-// 	if(eduList == null || eduList.size() == 0){
 %>
 <%
 		int i = 1;
@@ -131,7 +131,13 @@ nav{
 				<td>
 					<a href="/PitAPet/Cls_Detail.do?cls_subcode=<%=vo.getCls_subcode()%>"><%=vo.getCls_subject()%></a>
 				</td>
-				<td style="text-align : right;">총 <%=vo.getCls_count()%>강</td>
+				<%for(ClassVO vo2 : countList){
+					if(vo.getCls_subject().equals(vo2.getCls_subject())){
+				%>
+					<td style="text-align : right;">총 <%=vo2.getCls_count()%>강</td>
+				<%		
+					}
+				}%>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align : right;">강사 : <%=vo.getEmp_name()%></td>
