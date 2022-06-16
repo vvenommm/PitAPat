@@ -128,12 +128,12 @@ System.out.println(packList);
 					<img src="images/J.png" style="width : 150px;"><br>
 					<p style="display : none"><%=vo.getCls_no()%></p>
 				</td>
-				<td>
-					<a href="/PitAPet/Cls_Detail.do?cls_subcode=<%=vo.getCls_subcode()%>"><%=vo.getCls_subject()%></a>
-				</td>
 				<%for(ClassVO vo2 : countList){
 					if(vo.getCls_subject().equals(vo2.getCls_subject())){
 				%>
+				<td>
+					<a href="/PitAPet/Cls_Detail.do?cls_subject=<%=vo.getCls_subject()%>&cls_count=<%=vo2.getCls_count()%>"><%=vo.getCls_subject()%></a>
+				</td>
 					<td style="text-align : right;">총 <%=vo2.getCls_count()%>강</td>
 				<%		
 					}
