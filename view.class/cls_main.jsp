@@ -44,23 +44,17 @@ $(function(){
 	//훈련사의 내 강의 목록 보기
 	$('#myCls').on('click', function(){
 		clsList = document.getElementById('clsList');
-		mem_id = "<%=id%>";
 // 		getMyEdu();
 		$.ajax({
 			url : '<%=request.getContextPath()%>/Cls_myCls.do',
 			type : 'post',
-			data : {"mem_id" : mem_id},
 			success : function(res){
-				//부모노드(eduList)에 모든 강의(자식 노드)가 없어질 때까지
-//  				while(eduList.hasChildNodes()){ 
-//  					eduList.removeChild(eduList.childNodes[0]);
-//  				}
  				$(clsList).html('');
-				code = "";
+				let code = "";
  				$.each(res, function(i, v){
  					code += '<div class="clsDiv"><table border="1" class="clsOne">';
- 					code += '<tr><td rowspan="4"><img src="images/J.png" style="width : 150px;"><br><p style="display : none">' + v.cls_no + '</p></td>';
- 					code += '<td><a href="/PitAPet/Cls_Detail.do?cls_subject=' + vo.cls_subject + '">' + v.cls_subject + '</a></td>';
+ 					code += '<tr><td rowspan="4"><img src="images/J.png" style="width : 150px;"><br></td>';
+ 					code += '<td><a href="/PitAPet/Cls_Detail.do?cls_subject=' + v.cls_subject + '&cls_count=' + v.cls_count + '">' + v.cls_subject + '</a></td>';
  					code += '<td style="text-align : right;">총 ' + v.cls_count + '강</td></tr>';
  					code += '<tr><td colspan="2" style="text-align : right;">강사 : ' + v.emp_name + '</td></tr>';
  					code += '<tr><td colspan="2">' + v.cls_content + '</td></tr>';
