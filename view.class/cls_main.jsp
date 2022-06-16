@@ -60,7 +60,7 @@ $(function(){
  				$.each(res, function(i, v){
  					code += '<div class="clsDiv"><table border="1" class="clsOne">';
  					code += '<tr><td rowspan="4"><img src="images/J.png" style="width : 150px;"><br><p style="display : none">' + v.cls_no + '</p></td>';
- 					code += '<td><a href="/PitAPet/Cls_Detail.do?cls_subcode=' + vo.cls_subcode + '">' + v.cls_subject + '</a></td>';
+ 					code += '<td><a href="/PitAPet/Cls_Detail.do?cls_subject=' + vo.cls_subject + '">' + v.cls_subject + '</a></td>';
  					code += '<td style="text-align : right;">총 ' + v.cls_count + '강</td></tr>';
  					code += '<tr><td colspan="2" style="text-align : right;">강사 : ' + v.emp_name + '</td></tr>';
  					code += '<tr><td colspan="2">' + v.cls_content + '</td></tr>';
