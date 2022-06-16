@@ -38,11 +38,11 @@ $(function(){
 		num = num+1;
 		
 		let code = '';
-		code += '<div id ="added">';
+		code += '<div class ="added">';
 		code += '<label>개별 강의 제목</label>';
-		code += '<input type="text" id="clsTitle' + num + '" name="cls_title" class="clsInsert"><br>';		
+		code += '<input type="text" id="clsTitle' + num + '" name="cls_title' + num + '" class="clsInsert"><br>';		
 		code += '<label>해당 강의 링크</label>';
-		code += '<input type="text" id="clsPath' + num + '" name="cls_path" class="clsInsert"><br>';
+		code += '<input type="text" id="clsPath' + num + '" name="cls_path' + num + '" class="clsInsert"><br>';
 		code += '</div>';
 		
 // 		alert(num);
