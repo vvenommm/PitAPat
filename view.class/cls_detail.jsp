@@ -39,34 +39,12 @@ $(function(){
 	
 	//훈련사의 강의 삭제
 	$('#deleteCls').on('click', function(){
+		let text = '해당 강의를 삭제하시겠습니까?';
+		if(confirm(text) == true){
+			location.href = "<%=request.getContextPath()%>/Cls_Delete.do?cls_subject=<%=clsOneList.get(0).getCls_subject()%>&cls_count=<%=cls_count%>";
+		}
 		
-		location.href = "<%=request.getContextPath()%>/Cls_Insert.do"
-		
-		let code = "";
-	    code += '<select id="clsStatus">';
-	    code += '<option value="등록">등록</option>';
-	    code += '<option value="삭제">삭제</option>';
-	    code += '</select><br>';
-	    
-	    prt = document.getElementById('clsOne');
-	    alert(prt);
-	    
-	    $(code).appendTo($(prt));
 	})
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 })
 </script>
