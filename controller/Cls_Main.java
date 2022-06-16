@@ -27,15 +27,15 @@ public class Cls_Main extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		HttpSession session = request.getSession();
-//		MemberVO memVO = (MemberVO) session.getAttribute("loginMember");
-		MemberVO memVO = new MemberVO();
-		memVO.setMem_id("20006TR");
-		session.setAttribute("loginMember", memVO);
+//		String id = (String)session.getAttribute("id");
+//		MemberVO memVO = new MemberVO();
+//		memVO.setMem_id("20006TR");
+		String id = "20006TR";
+		request.setAttribute("id", id);
 
 		// service 객체 얻어오기
 		ClassService service = ClassServiceImpl.getInstance();
-
-		// 결과값 받을 객체 생성 후 servlet 메소드 호출해서 결과값 받기
+ 		// 결과값 받을 객체 생성 후 servlet 메소드 호출해서 결과값 받기
 		List<ClassVO> packList = service.getAllPack();
 		List<ClassVO> countList = service.getClsCount();
 		
