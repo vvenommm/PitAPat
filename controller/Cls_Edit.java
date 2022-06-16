@@ -77,8 +77,12 @@ public class Cls_Edit extends HttpServlet {
 			ClassVO vo = gson.fromJson(data, ClassVO.class);
 //			vo.setCls_no(cls_no);
 			vo.setEmp_id(id);
-
-			resultNum += service.editCls(vo);
+			
+			if(vo.getCls_no() == 0) {
+				resultNum += service.insertCls(vo);
+			}else {
+				resultNum += service.editCls(vo);
+			}
 //					clsList.add(vo);
 		}
 
