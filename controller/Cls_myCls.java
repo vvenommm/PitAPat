@@ -18,6 +18,7 @@ import kr.or.ddit.pitapet.vo.ClassVO;
 import kr.or.ddit.pitapet.vo.EducationVO;
 import kr.or.ddit.pitapet.vo.MemberVO;
 
+@WebServlet("/Cls_myCls.do")
 public class Cls_myCls extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +36,7 @@ public class Cls_myCls extends HttpServlet {
 		MemberVO memVO = new MemberVO();
 		memVO.setMem_id("20006TR");
 		session.setAttribute("loginMember", memVO);
+		String emp_id = memVO.getMem_id();
 
 		// Gson 객체 생성
 //				Gson gson = new Gson();
@@ -43,9 +45,9 @@ public class Cls_myCls extends HttpServlet {
 		ClassService service = ClassServiceImpl.getInstance();
 
 		// 서비스로 값 가져와서 받기
-		List<ClassVO> myClsList = service.getMyCls(memVO);
+		List<ClassVO> myClsList = service.getMyCls(emp_id);
 
-		System.out.println(myClsList); // 삭제하기
+		System.out.println("서비스에서 받아온 내 강의 리스트 " + myClsList); // 삭제하기
 
 		// 응답용 데이터를 JSON 문자열로 변환 & JSON 문자열이 저장될 변수 선언
 //				String jsonData = gson.toJson(myEduList);
