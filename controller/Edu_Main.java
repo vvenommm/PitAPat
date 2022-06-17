@@ -28,8 +28,9 @@ public class Edu_Main extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		HttpSession session = request.getSession();
-		MemberVO loginVO = (MemberVO)session.getAttribute("loginMember");
-		String id = loginVO.getMem_id();
+//		String id = (String)session.getAttribute("id");
+		String id = "20007TR";
+		session.setAttribute("id", id);
 		
 		//로그인 정보 가져오기
 //		String mem_id = request.getParameter("id");
