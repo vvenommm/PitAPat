@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.pitapet.education.service.EducationService;
 import kr.or.ddit.pitapet.education.service.EducationServiceImpl;
@@ -23,49 +24,30 @@ public class Edu_intoCart extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO edu_detail.jsp에서 장바구니 넣기 하면 post로 갔다가 여기로
-		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
 		
 		//값 받기
 		String edu_no = request.getParameter("edu_no");
-		String mem_id = request.getParameter("mem_id");
+		HttpSession session = request.getSession();
+		String mem_id = (String)session.getAttribute("id");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("edu_no", edu_no);
 		map.put("mem_id", mem_id);
 		
-		//Gson 객체 생성
-//		Gson gson = new Gson();
-		
 		// 서비스 객체 생성
 		CartService service = CartServiceImpl.getInstance();
 
 		// 서비스로 값 가져와서 받기
-//		List<EducationVO> myEduList = service.eduFinCart(eduVO);
+		int resultNum = service.eduFinCart(map);
 		
-//		System.out.println(myEduList); //삭제하기
-		
-		//응답용 데이터를 JSON 문자열로 변환 & JSON 문자열이 저장될 변수 선언
-//		String jsonData = gson.toJson(myEduList);
-		
-		
-//		System.out.println(myEduList); //삭제하기
-
 		// 값 저장하기
-//		request.setAttribute("myEduList", myEduList);
-		
-		//변환된 JSON 문자열을 응답 데이터로 전송
-//		PrintWriter out = response.getWriter();
-//		out.write(jsonData);
-//		response.flushBuffer();
+		request.setAttribute("resultNum", resultNum);
 		
 		// view페이지로 이동
-		request.getRequestDispatcher("WEB-INF/view.education/edu_myEdu.jsp").forward(request, response);		
-		
-		
-		
+		request.getRequestDispatcher("WEB-INF/view.class/resultNum.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
