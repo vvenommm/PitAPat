@@ -34,7 +34,8 @@ public class Edu_Insert extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		//request에서 매개변수 받기
-		String emp_code = (String)request.getParameter("id");
+		String id = (String)request.getParameter("id");
+		System.out.println("저장된 id : " + id);
 		
 		//요청 시 전송 데이터 받기
 		String edu_title = (String)request.getParameter("edu_title");
@@ -53,7 +54,7 @@ public class Edu_Insert extends HttpServlet {
 		vo.setEdu_time(edu_time);
 		vo.setEdu_fee(edu_fee);
 		vo.setEdu_limit(edu_limit);
-		vo.setEmp_code("20007TR");
+		vo.setEmp_id("20007TR");
 		
 		//시퀀스로 만들고 이건 지우기
 		vo.setEdu_no(18);
