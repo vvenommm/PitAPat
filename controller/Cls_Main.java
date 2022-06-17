@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import kr.or.ddit.pitapet.education.service.ClassService;
 import kr.or.ddit.pitapet.education.service.ClassServiceImpl;
 import kr.or.ddit.pitapet.vo.ClassVO;
-import kr.or.ddit.pitapet.vo.MemberVO;
+import kr.or.ddit.pitapet.vo.EmployeeVO;
 
 @WebServlet("/Cls_Main.do")
 public class Cls_Main extends HttpServlet {
@@ -28,13 +28,16 @@ public class Cls_Main extends HttpServlet {
 
 		HttpSession session = request.getSession();
 //		String id = (String)session.getAttribute("id");
-//		MemberVO memVO = new MemberVO();
-//		memVO.setMem_id("20006TR");
-		String id = "20006TR";
-		request.setAttribute("id", id);
+		String id = "20007TR";
+		session.setAttribute("id", id);
+		EmployeeVO vo = new EmployeeVO();
+		vo.setEmp_id(id);
+		session.setAttribute("loginEmpl", vo);
+		
 
 		// service 객체 얻어오기
 		ClassService service = ClassServiceImpl.getInstance();
+		
  		// 결과값 받을 객체 생성 후 servlet 메소드 호출해서 결과값 받기
 		List<ClassVO> packList = service.getAllPack();
 		List<ClassVO> countList = service.getClsCount();
