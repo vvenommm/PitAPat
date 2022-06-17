@@ -1,11 +1,12 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:include page="../../include/header.jsp" ></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="../images/logo.png"/>
-<title>피터펫(PIT-A-PET)</title>
 </head>
 <body>
 
@@ -17,8 +18,13 @@
 		<label>교육 내용</label>
 		<input type='text' id='edu_content' name='edu_content' class="eduInsert"><br>
 
+<% 
+   LocalDate now = LocalDate.now(); 
+   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");   
+   String today = now.format(formatter); 
+%>
 		<label>교육 일자</label>
-		<input type='date' id='edu_date' name='edu_date' class="eduInsert"><br>
+		<input type='date' id='edu_date' name='edu_date' min="<%=today%>" class="eduInsert"><br>
 
 		<label>교육 장소</label>
 		<select class="eduInsert" id='edu_place' name='edu_place'>
@@ -43,10 +49,6 @@
 	</form>
 </div>
 
-
-
-
-
-
 </body>
 </html>
+<jsp:include page="../../include/footer.jsp" ></jsp:include>
