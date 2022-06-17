@@ -104,7 +104,7 @@ public class ClassDAOImpl implements ClassDAO {
 	
 	// 5. 온라인 강좌 수정
 	@Override
-	public int modiCls(ClassVO vo) throws SQLException {
+	public int editCls(ClassVO vo) throws SQLException {
 		return smc.update("class.modiCls", vo);
 	}
 	
@@ -114,8 +114,8 @@ public class ClassDAOImpl implements ClassDAO {
 	
 	// 6. 훈련사의 내 온라인 강좌 보기
 	@Override
-	public List<ClassVO> getMyCls(MemberVO vo) throws SQLException {
-		return smc.queryForList("class.getMyCls", vo);
+	public List<ClassVO> getMyCls(String emp_id) throws SQLException {
+		return smc.queryForList("class.getMyCls", emp_id);
 	}
 	
 	
