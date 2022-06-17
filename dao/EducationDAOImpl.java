@@ -125,8 +125,8 @@ public class EducationDAOImpl implements EducationDAO {
 	
 	//9. 오프라인 강좌 수정
 	@Override
-	public int modiEdu(EducationVO vo) throws SQLException {
-		return smc.update("edu.modiEdu", vo);
+	public int editEdu(EducationVO vo) throws SQLException {
+		return smc.update("edu.editEdu", vo);
 	}
 	
 	
@@ -135,8 +135,8 @@ public class EducationDAOImpl implements EducationDAO {
 	
 	//10. 훈련사의 내 오프라인 강좌 보기
 	@Override
-	public List<EducationVO> getMyEdu(String emp_code) throws SQLException {
-		return smc.queryForList("edu.getMyEdu", emp_code);
+	public List<EducationVO> getMyEdu(String emp_id) throws SQLException {
+		return smc.queryForList("edu.getMyEdu", emp_id);
 	}
 	
 	
