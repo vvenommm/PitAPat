@@ -22,8 +22,7 @@
 </head>
 <%
 	List<EducationVO> eduList = (List<EducationVO>)request.getAttribute("eduList");
-	MemberVO loginVO = (MemberVO)session.getAttribute("loginMember");
-	String id = loginVO.getMem_id();
+	String id = (String)session.getAttribute("id");
 // 	String id = "20007AD";
 // 	String id = "20007TR";
 // 	String id = "20006TR";
@@ -55,10 +54,6 @@ $(function(){
 			type : 'post',
 			data : {"mem_id" : mem_id},
 			success : function(res){
-				//부모노드(eduList)에 모든 강의(자식 노드)가 없어질 때까지
-//  				while(eduList.hasChildNodes()){ 
-//  					eduList.removeChild(eduList.childNodes[0]);
-//  				}
  				$(eduList).html('');
 				code = "";
  				$.each(res, function(i, v){
@@ -83,7 +78,6 @@ $(function(){
 			dataType : 'json'
 		})
 	})
-	
 })
 </script>
 <body>
@@ -114,7 +108,6 @@ $(function(){
 <div id="eduList" >
 <%
 	if(eduList != null && eduList.size() > 0){
-// 	if(eduList == null || eduList.size() == 0){
 %>
 <%
 		int i = 1;
