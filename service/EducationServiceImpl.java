@@ -39,6 +39,7 @@ public class EducationServiceImpl implements EducationService{
 		} catch (SQLException e) {
 			eduList = null;
 			e.printStackTrace();
+			logger.info("작업 실패~~~");
 		}
 		
 		return eduList;
@@ -202,12 +203,12 @@ public class EducationServiceImpl implements EducationService{
 	
 	//9. 오프라인 강좌 수정
 	@Override
-	public int modiEdu(EducationVO vo) {
+	public int editEdu(EducationVO vo) {
 		int resultNum = 0;
 		logger.trace("매개변수 : " + vo);
 		
 		try {
-			resultNum = dao.modiEdu(vo);
+			resultNum = dao.editEdu(vo);
 			logger.trace("실행 dao 결과 : " + resultNum);
 			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
@@ -224,14 +225,14 @@ public class EducationServiceImpl implements EducationService{
 	
 	//10. 훈련사의 내 오프라인 강좌 보기
 	@Override
-	public List<EducationVO> getMyEdu(String emp_code) {
+	public List<EducationVO> getMyEdu(String emp_id) {
 		List<EducationVO> myEduList = null;
-		logger.trace("매개변수 : " + emp_code);
+		logger.trace("매개변수 : " + emp_id);
 		
 		try {
-			myEduList = dao.getMyEdu(emp_code);
+			myEduList = dao.getMyEdu(emp_id);
 			logger.trace("실행 dao 결과 : " + myEduList);
-			logger.info("작업 성공~~~");
+			logger.info("getMyEdu 작업 성공~~~");
 		} catch (SQLException e) {
 			myEduList = null;
 			e.printStackTrace();
