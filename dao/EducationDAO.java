@@ -129,7 +129,7 @@ public interface EducationDAO {
 	 * @return 성공 : 1, 실패 : 0
 	 * @throws SQLException
 	 */
-	public int modiEdu (EducationVO vo) throws SQLException;
+	public int editEdu (EducationVO vo) throws SQLException;
 	
 	
 	//////////////////////////////////////////////////////////////////
