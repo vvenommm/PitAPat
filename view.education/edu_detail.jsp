@@ -6,12 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="../jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="../js/jquery.serializejson.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="WEB-INF/images/logo.png"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath() %>/WebContent/WEB-INF/images/logo.png"/>
 <title>피터펫(PIT-A-PET)</title>
 <%
 	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
@@ -20,8 +23,8 @@
 // 	String id = (String)session.getAttribute("id");
 // if(id == null) id = "";
 // 	String id = "";
-	String id = "20007AD";
-// 	String id = "20007TR";
+// 	String id = "20007AD";
+	String id = "20007TR";
 // 	String id = "20006TR";
 	String regex = "[0-9]{1,5}[A-Z]{2}";
 	boolean result = Pattern.matches(regex, id);
@@ -29,11 +32,12 @@
 %>
 
 <script type="text/javascript">
-window.onload() = function(){
+$(function(){
+	edu_no = "<%=eduOne.getEdu_no()%>";
+	mem_id = "<%=id%>";
+
+	//장바구니에 넣기
 	$('#getInCart').on('click', function(){
-		
-		edu_no = <%=eduOne.getEdu_no()%>;
-		mem_id = <%=id%>;
 		
 		if(mem_id.equals("")){
 			alert('로그인 후 이용 가능합니다.');
@@ -52,7 +56,27 @@ window.onload() = function(){
 			});
 		}
 	})
-}
+	
+	//훈련사의 강의 수정 누르면 수정 창으로 이동 
+	$('#editEdu').on('click', function(){
+		location.href="<%=request.getContextPath()%>/Edu_Edit.do?edu_no=<%=eduOne.getEdu_no()%>";
+	})
+		
+
+	//훈련사의 강의 삭제
+	$('#deleteEdu').on('click', function(){
+		let text = '해당 강의를 삭제하시겠습니까?';
+		if(confirm(text) == true){
+<%-- 			location.href = "<%=request.getContextPath()%>/Cls_Delete.do?cls_subject=<%=clsOneList.get(0).getCls_subject()%>&cls_count=<%=cls_count%>"; --%>
+		}
+	})
+	
+	//다시 글목록으로
+	$('#backToList').on('click', function(){
+		location.href = "<%=request.getContextPath()%>/Cls_Main.do";
+	})
+	
+})
 </script>
 
 </head>
@@ -60,26 +84,29 @@ window.onload() = function(){
 <%
 	System.out.println("edu_detail.jsp");
 	
-	System.out.println(id + "" + result);
+	System.out.println(id + " : " + result);
 	if(result && id.substring(5).equals("AD")){ //관리자일 때
 		
 %>
 	<input type=button value="강의 수정" id = "editEdu">
 	<input type=button value="강의 삭제" id = "deleteEdu"><br>
 <%
-	}else if(result && id.substring(5).equals("TR")&&id.equals(eduOne.getEmp_code())){ //훈련사 본인 글일 때
+	}else if(result && id.substring(5).equals("TR")&&id.equals(eduOne.getEmp_id())){ //훈련사 본인 글일 때
 %>
 	<input type=button value="강의 수정" id = "editEdu">
 	<input type=button value="강의 삭제" id = "deleteEdu"><br>
 <%
 	}
 %>
+
+
+
 	<div class="eduOne" style="display:inline-block">
-		<p style="display : none" name = "edu_no"><%=eduOne.getEdu_no()%></p>
 <table border="1">
 	<tr>
 		<td colspan="4">
-			<img src="../images/Better.jpg">
+		
+			<img src="images/Better.jpg">
 		</td>
 		<td></td>
 		<td></td>
@@ -103,7 +130,7 @@ window.onload() = function(){
 	</tr>
 	<tr>
 		<td colspan="2">
-		<%=eduOne.getEdu_date()%>
+		<%=eduOne.getEdu_date2()%>
 		</td>
 		<td>
 		<%=eduOne.getEdu_time()%>
@@ -128,9 +155,13 @@ window.onload() = function(){
 			<%=eduOne.getEdu_price()%>원
 		</td>
 	</tr>
+	<tr style="display : none" >
+		<td colspan="4" style="display : none" >
+			<p style="display : none" name = "edu_no"><%=eduOne.getEdu_no()%></p>
+		</td>
+	</tr>
 </table>
 	</div><br>
 	<input type="button" id="getInCart" value="장바구니 담기">
-	<button id='eduList'>목록 보기</button>
-</body>
-</html>
+	
+<jsp:include page="../../include/footer.jsp" ></jsp:include>
