@@ -22,9 +22,8 @@ public class Edu_Detail extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		//edu_main.jsp에서 클릭한 교육글번호 값 변수에 담기
-//		int edu_no = Integer.parseInt(request.getParameter("edu_no"));
-		int edu_no = 1;
-		System.out.println(edu_no);
+		int edu_no = Integer.parseInt(request.getParameter("edu_no"));
+		System.out.println("Edu_Detail.java의 edu_no : " + edu_no);
 		
 		//서비스 객체 생성
 		EducationService service = EducationServiceImpl.getInstance();
@@ -43,6 +42,7 @@ public class Edu_Detail extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
