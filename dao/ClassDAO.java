@@ -100,7 +100,7 @@ public interface ClassDAO {
 	 * @return 성공 : 1, 실패 : 0
 	 * @throws SQLException
 	 */
-	public int modiCls (ClassVO vo) throws SQLException;
+	public int editCls (ClassVO vo) throws SQLException;
 
 	
 	//////////////////////////////////////////////////////////////////
@@ -109,11 +109,11 @@ public interface ClassDAO {
 	// 6. 훈련사의 내 온라인 강좌 보기
 	/**
 	 * 훈련사가 내 강좌 보기 클릭 시 본인 강의만 목록으로 출력
-	 * @param emp_id 훈련사 본인의 아이디이자 사번
+	 * @param emp_id 훈련사 본인의 아이디이자 사번이 있는 멤버vo
 	 * @return 본인의 강의를 담고 있는 List<ClassVO) 객체
 	 * @throws SQLException
 	 */
-	public List<ClassVO> getMyCls (MemberVO vo) throws SQLException;
+	public List<ClassVO> getMyCls (String emp_id) throws SQLException;
 	
 	
 	//////////////////////////////////////////////////////////////////
