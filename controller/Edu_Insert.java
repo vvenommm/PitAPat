@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.pitapet.education.service.EducationService;
 import kr.or.ddit.pitapet.education.service.EducationServiceImpl;
@@ -33,9 +34,10 @@ public class Edu_Insert extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		//request에서 매개변수 받기
-		String id = (String)request.getParameter("id");
-		System.out.println("저장된 id : " + id);
+		//session에서 매개변수 받기
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		System.out.println("세션에 저장된 id : " + id);
 		
 		//요청 시 전송 데이터 받기
 		String edu_title = (String)request.getParameter("edu_title");
@@ -54,7 +56,7 @@ public class Edu_Insert extends HttpServlet {
 		vo.setEdu_time(edu_time);
 		vo.setEdu_fee(edu_fee);
 		vo.setEdu_limit(edu_limit);
-		vo.setEmp_id("20007TR");
+		vo.setEmp_id(id);
 		
 		//시퀀스로 만들고 이건 지우기
 		vo.setEdu_no(18);
