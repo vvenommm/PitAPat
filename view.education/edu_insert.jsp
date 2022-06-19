@@ -3,13 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../../include/header.jsp" ></jsp:include>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
 
+<div id="eduBody">
 <div id='edu_insert_div'>
 	<form action="/PitAPet/Edu_Insert.do" method="post">
 		<label>교육 제목</label>
@@ -48,7 +43,6 @@
 
 	</form>
 </div>
+</div>
 
-</body>
-</html>
 <jsp:include page="../../include/footer.jsp" ></jsp:include>
