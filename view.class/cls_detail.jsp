@@ -4,23 +4,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../../include/header.jsp" ></jsp:include>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 
 <%
 	List<ClassVO> clsOneList = (List<ClassVO>)request.getAttribute("clsOne");
 	int cls_count = (int)request.getAttribute("cls_count");
 
-//아이디 검증////////////////////////////////////////////////////
-// 	String id = (String)session.getAttribute("id");
-// if(id == null) id = "";
-// 	String id = "";
-// 	String id = "20007AD";
-// 	String id = "20007TR";
-// 	String id = "20006TR";
-	String id = (String)request.getAttribute("id");
+	//아이디 검증////////////////////////////////////////////////////
+	String id = (String)session.getAttribute("id");
+	if(id == null){
+		id = "";
+	}
 	String regex = "[0-9]{1,5}[A-Z]{2}";
 	boolean result = Pattern.matches(regex, id);
 	////////////////////////////////////////////////////////////////
@@ -47,10 +40,35 @@ $(function(){
 		location.href = "<%=request.getContextPath()%>/Cls_Main.do";
 	})
 	
+	//장바구니에 넣기
+	$('#getInCart').on('click', function(){
+		cls_subject="<%=clsOneList.get(0).getCls_subject()%>";
+		id = "<%=id%>";
+		if(id == ""){
+			alert('로그인 후 이용 가능합니다.');
+		}else{
+			$.ajax({
+				url : '<%=request.getContextPath()%>/Cls_intoCart.do',
+				type : 'post',
+				data : {"cls_subject" : cls_subject},
+				success : function(res){
+					if(res == 1){
+ 						alert(res.sw);
+					}else{
+ 						alert(res.sw);
+					}
+				},
+				error : function(xhr){
+					alert('상태 : ' + xhr.status);
+				},
+				dataType : 'json'
+			})
+		}
+	})
+	
 })
 </script>
-</head>
-<body>
+<div id="clsBody">
 <div>you are on cls_detail.jsp</div>
 
 <%
@@ -116,6 +134,5 @@ $(function(){
 
 	<input type="button" id="getInCart" value="장바구니 담기">
 
-</body>
-</html>
+</div>
 <jsp:include page="../../include/footer.jsp" ></jsp:include>
