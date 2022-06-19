@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 List<ClassVO> myClsList = (List<ClassVO>)request.getAttribute("myClsList");
-System.out.println("edu_myEdu.jsp의 서블릿에서 받은 리스트 : " + myClsList);
+System.out.println("cls_myCls.jsp의 서블릿에서 받은 리스트 : " + myClsList);
 %>
 
 [
