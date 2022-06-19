@@ -7,46 +7,153 @@
 <sqlMap namespace = "cart">
 
 <!-- 	//1. 모든 카트 상품 가져오기 -->
-	<select id="getAllCart" resultClass="cart">
-		SELECT * FROM CART
+	<select id="getAllCart" parameterClass="memberVO" resultClass="cart">
+		SELECT * FROM CART where mem_id = #mem_id#
 	</select>
 	
 <!-- 	//2. 미결인 모든 상품 가져오기 -->
-	<select id="inCart" resultClass="cart">
-		SELECT * FROM CART WHERE CART_PAY = 'N'
+	<select id="inCart" parameterClass="string" resultClass="cart">
+	   SELECT C.CART_NO, C.MEM_ID, C.CART_STATUS, NVL(C.EDU_NO, '없음') EDU_NO, NVL(C.KIN_CODE, '없음') KIN_CODE, NVL(C.CLS_NO, '없음') CLS_NO,
+       NVL((SELECT to_char(KIN_FEE) FROM KINDERGARTEN K WHERE K.KIN_CODE = C.KIN_CODE), '없음') KIN_FEE, 
+       NVL((SELECT KIN_GUBUN FROM KINDERGARTEN K WHERE K.KIN_CODE = C.KIN_CODE),'없음') KIN_GUBUN,
+       NVL((SELECT to_char(CLS_FEE) FROM CLASS CL WHERE CL.CLS_NO = C.CLS_NO),'없음') CLS_FEE,
+       NVL((SELECT CLS_SUBJECT FROM CLASS CL WHERE CL.CLS_NO = C.CLS_NO),'없음') CLS_SUBJECT,
+       NVL((SELECT CLS_TITLE FROM CLASS CL WHERE CL.CLS_NO = C.CLS_NO),'없음') CLS_TITLE,
+       NVL((SELECT to_char(EDU_FEE) FROM EDUCATION E WHERE E.EDU_NO = C.EDU_NO),'없음') EDU_FEE,
+       NVL((SELECT EDU_TITLE FROM EDUCATION E WHERE E.EDU_NO = C.EDU_NO),'없음') EDU_TITLE
+	   FROM CART C
+	   WHERE MEM_ID = #data# 
+	   AND CART_STATUS = '미결'
+	   ORDER BY SUBSTR(CART_NO,1,6) DESC       
 	</select>
 	
-<!-- 	//3. 결제한 모든 상품 상세 조회 -->
-	<select id="payedCart" resultClass="cart">
-		SELECT * FROM CART WHERE CART_PAY = 'Y'
+<!-- 	//3-1. 결제한 모든 상품 조회 -->
+	<select id="payedCart" parameterClass="string" resultClass="cart">
+		SELECT C.CART_NO, C.MEM_ID, C.CART_STATUS, NVL(C.EDU_NO, 0) EDU_NO, NVL(C.KIN_CODE, '없음') KIN_CODE, NVL(C.CLS_NO, 0) CLS_NO,
+		NVL(K.KIN_GUBUN, '없음') KIN_GUBUN, NVL(CL.CLS_SUBJECT, '없음') CLS_SUBJECT, NVL(E.EDU_TITLE, '없음') EDU_TITLE, NVL(K.KIN_FEE, 0) KIN_FEE,
+		NVL(CL.CLS_FEE, 0) CLS_FEE, NVL(E.EDU_FEE, 0) EDU_FEE, TO_DATE(20||SUBSTR(C.PAY_NO,1,6), 'YYYY-MM-DD') PAY_NO 
+		FROM CART C, KINDERGARTEN K, CLASS CL, EDUCATION E
+		WHERE C.KIN_CODE = K.KIN_CODE(+)
+		AND C.CLS_NO = CL.CLS_NO(+)
+		AND C.EDU_NO = E.EDU_NO(+)
+		AND C.CART_STATUS != '미결'
+		AND C.MEM_ID = #data#    
 	</select>
+	
+	<!-- 조회날짜에 맞는 결제내역 -->
+	<select id="selectDate" parameterClass="string" resultClass="cart">
+		SELECT * FROM CART
+        WHERE TO_DATE(SUBSTR(PAY_NO,1,6), 'YY/MM/DD') = TO_DATE(TO_DATE(#data#), 'YY/MM/DD'))
+	</select>
+	
+	
+<!-- 	//3-2. 특정 결제번호의 결제한 모든 상품 조회 - 결제 취소, 결제 둘 다-->
+<!-- 	<select id="payedCart" parameterClass="map" resultClass="cart"> -->
+<!-- 		SELECT * FROM CART where mem_id = #mem_id# and pay_no = #pay_no# -->
+<!-- 	</select> -->
+	
+	
+<!-- 	//3-2. 특정 결제번호의 결제한 모든 상품 조회 - 결제 취소만 -->
+<!-- 	<select id="payedCart" parameterClass="map" resultClass="cart"> -->
+<!-- 		SELECT * FROM CART where mem_id = #mem_id# and cart_status = '취소' and pay_no = #pay_no# -->
+<!-- 	</select> -->
+	
+	
+<!-- 	//3-2. 특정 결제번호의 결제한 모든 상품 조회 - 결제만 -->
+<!-- 	<select id="payedCart" parameterClass="map" resultClass="cart"> -->
+<!-- 		SELECT * FROM CART where mem_id = #mem_id# and cart_status = '결제' and pay_no = #pay_no# -->
+<!-- 	</select> -->
 	
 	
 <!-- 	////////////////////////////////////////////////////////// -->
 
-<!-- 	//4-1. 손님이 원하는 상품 넣기 - 장바구니 비었을 때 첫 상품 -->
-<!-- 	이거 ITERATE 사용하기!!!!!!!!!!!!!!!!!!!!! -->
-	<insert id="putInCart" parameterClass="list">
-		INSERT INTO CART VALUES(CART_NO = #CART_NO#, MEM_ID = #MEM_ID#, CART_STATUS = '미결', EDU_NO = #EDU_NO#, KIN_CODE = #KIN_CODE#, CLS_NO = #CLS_NO#, PAY_NO = #PAY_NO#)
+<!-- 		//4. 카운트로 담긴 상품이 있는지 확인하기 -->
+<!-- 	//4-1. 유치원 -->
+<!-- 		<select id="ifKin" parameterClass="memberVO" resultClass="int"> -->
+<!-- 			select count(kin_code) from cart where mem_id = #mem_id# and cart_status = '미결' -->
+<!-- 		</select> -->
+		
+<!-- 	//4-2. 온라인 -->
+<!-- 		<select id="ifCls" parameterClass="memberVO" resultClass="int"> -->
+<!-- 			select count(cls_no) from cart where mem_id = #mem_id# and cart_status = '미결' -->
+<!-- 		</select> -->
+		
+<!-- 	//4-3. 오프라인 -->
+<!-- 		<select id="ifEdu" parameterClass="memberVO" resultClass="int"> -->
+<!-- 			select count(edu_no) from cart where mem_id = #mem_id# and cart_status = '미결' -->
+<!-- 		</select> -->
+		
+		
+<!-- 	////////////////////////////////////////////////////////// -->
+
+
+<!-- 		//5. 장바구니 상품 넣기 -->
+<!-- 	//5-1. 유치원 -->
+	<insert id="kinFinCart" parameterClass="map">
+		insert into cart(cart_no, mem_id, cart_status, kin_code) 
+		values(class_seq.nextVal, #mem_id#, '미결', (SELECT KIN_CODE FROM KINDERGARTEN WHERE SUBSTR(KIN_CODE,2,2) = SUBSTR(SYSDATE,4,2)))
+	</insert>
+	
+	
+<!-- 	//5-2. 온라인 -->
+	<insert id="clsFinCart" parameterClass="map">
+		insert into cart(cart_no, mem_id, cart_status, cls_no) 
+		values(class_seq.nextVal, #mem_id#, '미결', (select min(cls_no) from class where cls_subject = #cls_subject#))
+	</insert>
+	
+	
+<!-- 	//5-3. 오프라인 -->
+	<insert id="eduFinCart" parameterClass="map">
+		insert into cart(cart_no, mem_id, cart_status, edu_no) 
+		values(class_seq.nextVal, #mem_id#, '미결', #edu_no#)
 	</insert>
 
-<!-- 	//4-2-1. 장바구니에 이미 있고 다른 상품 추가하기 - 온라인	 -->
-<!-- 	<update id="addInCart" parameterClass=""> -->
+
+<!-- 		// 6. 장바구니에서 삭제 -->
+<!-- 	//6-1. 유치원 -->
+	<update id="kinDelCart" parameterClass="map">
+		update cart set kin_code is null where mem_id = #mem_id# and cart_status = '미결' and kin_code = #kin_code#
+	</update>
+
 	
-<!-- 	</update> -->
+<!-- 	//6-2. 온라인 -->
+	<update id="clsDelCart" parameterClass="map">
+		update cart set cls_no is null where mem_id = #mem_id# and cart_status = '미결' and cls_no = #cls_no#
+	</update>
 
-<!-- 	//4-2-2. 장바구니에 이미 있고 다른 상품 추가하기 - 오프라인	 -->
+
+<!-- 	//6-3. 오프라인 -->
+	<update id="eduDelCart" parameterClass="map">
+		update cart set edu_no is null where mem_id = #mem_id# and cart_status = '미결' and edu_no = #edu_no#
+	</update>
+
+	
+<!-- 	////////////////////////////////////////////////////////// -->
 
 
-<!-- 	//4-2-3. 장바구니에 이미 있고 다른 상품 추가하기 - 유치원	 -->
+<!-- 	//7. 한 회원의 미결인 상품 중 유치원이나 오프라인 교육이 있는지 -->
+	<select id="isThere" parameterClass="String" resultClass="cart">
+		select count(kin_code) kin_code, count(edu_no) edu_no from cart where mem_id = #mem_id# and cart_status = '미결' and pay_no is null
+	</select>
+
+<!-- 	//8. 한 회원이 결제하려할 때 강아지 정보가 있는지 -->
+<!-- 	<select id="isThereDog" parameterClass="String" resultClass="dogVO"> -->
+<!-- 		select * from dog where where mem_id = #mem_id# -->
+<!-- 	</select> -->
+
+
+<!-- 	////////////////////////////////////////////////////////// -->
+<!-- 	///////////////////////////구매 후//////////////////////// -->
+<!-- 	////////////////////////////////////////////////////////// -->
+
 
 <!-- 	////////////////////////////////////////////////////////// -->
 
-<!-- 	//5. 결제 취소 -->
-	<update id="payCancel" parameterClass="pay">
-		UPDATE CART SET CART_STATUS = '취소' WHERE PAY_NO = #PAY_NO#
-	</update> 
 
+<!-- 		//7. 전체 결제 -->
+	<update id="cartPayAll" parameterClass="map">
+		update cart set cart_status = '결제', pay_no = #pay_no# where mem_id = #mem_id# and cart_status = '미결'
+	</update>
 
 
 </sqlMap>
