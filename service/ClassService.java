@@ -93,7 +93,7 @@ public interface ClassService {
 	 * @param vo 훈련사가 자기 강좌를 수정하고 싶을 때 수정 정보를 담은 객체
 	 * @return 성공 : 1, 실패 : 0
 	 */
-	public int modiCls (ClassVO vo);
+	public int editCls (ClassVO vo);
 
 	
 	//////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@ public interface ClassService {
 	 * @return 본인의 강의를 담고 있는 List<ClassVO) 객체
 	 * @throws SQLException
 	 */
-	public List<ClassVO> getMyCls (MemberVO vo);
+	public List<ClassVO> getMyCls (String emp_id);
 		
 		
 	//////////////////////////////////////////////////////////////////
