@@ -32,33 +32,18 @@ public class Cls_myCls extends HttpServlet {
 
 		// 값 받기
 		HttpSession session = request.getSession();
-//		MemberVO memVO = (MemberVO) session.getAttribute("loginMember");
-		MemberVO memVO = new MemberVO();
-		memVO.setMem_id("20006TR");
-		session.setAttribute("loginMember", memVO);
-		String emp_id = memVO.getMem_id();
-
-		// Gson 객체 생성
-//				Gson gson = new Gson();
+		String id = (String) session.getAttribute("id");
 
 		// 서비스 객체 생성
 		ClassService service = ClassServiceImpl.getInstance();
 
 		// 서비스로 값 가져와서 받기
-		List<ClassVO> myClsList = service.getMyCls(emp_id);
+		List<ClassVO> myClsList = service.getMyCls(id);
 
 		System.out.println("서비스에서 받아온 내 강의 리스트 " + myClsList); // 삭제하기
 
-		// 응답용 데이터를 JSON 문자열로 변환 & JSON 문자열이 저장될 변수 선언
-//				String jsonData = gson.toJson(myEduList);
-
 		// 값 저장하기
 		request.setAttribute("myClsList", myClsList);
-
-		// 변환된 JSON 문자열을 응답 데이터로 전송
-//				PrintWriter out = response.getWriter();
-//				out.write(jsonData);
-//				response.flushBuffer();
 
 		// view페이지로 이동
 		request.getRequestDispatcher("WEB-INF/view.class/cls_myCls.jsp").forward(request, response);
