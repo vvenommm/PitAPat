@@ -5,16 +5,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../../include/header.jsp" ></jsp:include>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-</head>
+
 <%
 	List<ClassVO> packList = (List<ClassVO>)request.getAttribute("packList");
 	List<ClassVO> countList = (List<ClassVO>)request.getAttribute("countList");
 	
-	String id = (String)request.getAttribute("id");
+	String id = (String)session.getAttribute("id");
+	if(id == null){
+		id = "";
+	}
 	String regex = "[0-9]{1,5}[A-Z]{2}";
 	boolean result = Pattern.matches(regex, id);
 %>
@@ -62,39 +61,45 @@ $(function(){
 	})
 })
 </script>
-<style>
-nav{
-	padding-bottom: 500px;
-}
-</style>
-<body>
 
-<h3>온라인 강의</h3>
 
-<div>
-	온라인 강의 소개하는 곳
+<!-- //////////////////////////////////////////////////시작//////////////////////////////////////////////////// -->
+
+
+<div id="clsBody">
+<div id="cls_h3">
+<h3 id="cls_h3_text">온라인 강의</h3>
 </div>
+
+<div id="cls_intro">
+	<span style="font-weight : bold; font-family: 'Do Hyeon', sans-serif; font-size : 1.5em;">"언제 어디서나 공부한다!" 강의 패키지</span><br><br>영상강의 시청만을 위한 패키지입니다. 그룹/개인 대면 교육은 오프라인 교육에서 확인 가능합니다.
+</div>
+
+<br><br>
+
 
 <%
 	System.out.println("cls main.jsp");
 
 	if(result && id.substring(5).equals("TR")){
 %>
-<%-- 		<a href="<%=request.getContextPath()%>/Edu_Insert.do"><button>강의 등록</button></a> --%>
-		<input type=button value="강의 등록" id = "insertCls">
-		<input type=button value="내 강의 보기" id = "myCls">
+	<div id="cls_btn_div">
+		<input type=button value="강의 등록" id = "insertCls" class="cls_btn">
+		<input type=button value="내 강의 보기" id = "myCls" class="cls_btn">
+	</div>
 <%
 	}if(result && id.substring(5).equals("AD")){
 %>
-		<input type=button value="강의 등록" id = "insertCls">
-		<input type=button value="강의 관리" id = "manageCls">
+	<div id="cls_btn_div">
+		<input type=button value="강의 등록" id = "insertCls" class="cls_btn">
+		<input type=button value="강의 관리" id = "manageCls" class="cls_btn">
+	</div>
 <%		
 	}
 %>
 
-<div id="clsIntro">
-	<h4>영상강의만을 위한 패키지입니다. 오프라인 개인 교육 및 세미나 등은 회원 가입 후 가능합니다.</h4>
-</div>
+
+<br><br><br><br>
 
 <div id="clsList" >
 <%
@@ -119,9 +124,6 @@ System.out.println(packList);
 					<a href="/PitAPet/Cls_Detail.do?cls_subject=<%=vo.getCls_subject()%>&cls_count=<%=vo2.getCls_count()%>"><%=vo.getCls_subject()%></a>
 				</td>
 					<td style="text-align : right;">총 <%=vo2.getCls_count()%>강</td>
-				<%		
-					}
-				}%>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align : right;">강사 : <%=vo.getEmp_name()%></td>
@@ -130,8 +132,12 @@ System.out.println(packList);
 				<td colspan="2"><%=vo.getCls_content()%></td>
 			</tr>
 			<tr>
-				<td colspan="2" style="text-align : right;"><%=vo.getCls_price()%>원</td>
+				<td>총 <%=vo2.getCls_count()%>강</td>
+				<td style="text-align : right;"><%=vo.getCls_price()%>원</td>
 			</tr>
+				<%		
+					}
+				}%>
 			</table>
 		</div>
 		<br>
@@ -146,6 +152,5 @@ System.out.println(packList);
 <%
 	}
 %>
-</body>
-</html>
+</div>
 <jsp:include page="../../include/footer.jsp" ></jsp:include>
