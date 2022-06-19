@@ -2,27 +2,14 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="../images/logo.png"/>
-<title>피터펫(PIT-A-PET)</title>
-<%
-	
-%>
-<script type="text/javascript">
-$(function(){
-	
-})
-</script>
-</head>
-<body>
+<jsp:include page="../../include/header.jsp" ></jsp:include>
 
 <%
 	List<EducationVO> eduList = (List<EducationVO>)request.getAttribute("eduList");
 %>
 
+
+<div id="eduBody">
 <div id="eduList" name = "eduList">
 	<table border="1">
 		<tr>
@@ -46,7 +33,7 @@ $(function(){
 				<td style="display : none"><%=vo.getEdu_no() %></td>
 				<td><%=i %></td>
 				<td><%=vo.getEdu_title() %></td>
-				<td><%=vo.getEmp_code() %></td>
+				<td><%=vo.getEmp_id() %></td>
 				<td><%=vo.getEdu_date() %> <%=vo.getEdu_time() %></td>
 				<td><%=vo.getEdu_place() %></td>
 				<td><%=vo.getEdu_price() %></td>
@@ -73,6 +60,6 @@ $(function(){
 %>
 	</table>
 </div>
+</div>
 
-</body>
-</html>
+<jsp:include page="../../include/footer.jsp" ></jsp:include>
