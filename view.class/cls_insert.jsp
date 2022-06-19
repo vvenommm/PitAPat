@@ -3,10 +3,6 @@
 
 
 <jsp:include page="../../include/header.jsp" ></jsp:include>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <style>
 	label{
 		display: inline-block;
@@ -35,7 +31,6 @@ $(function(){
 		code += '<input type="text" id="clsPath' + num + '" name="cls_path' + num + '" class="clsInsert"><br>';
 		code += '</div>';
 		
-// 		alert(num);
 		$('#clsAdd').append(code);
 	})
 	
@@ -82,23 +77,14 @@ $(function(){
 	})
 })
 </script>
-<body>
 
+<div id="clsBody">
 	<div id='cls_insert_div'>
 		<label>교육 주제(패키지명)</label>
 		<input type='text' id='clsSubject' name='cls_subject' class="clsInsert"><br>
 
 		<label>교육 내용</label>
 		<input type='text' id='clsContent' name='cls_content' class="clsInsert"><br>
-
-<!-- 		<label>교육 등급</label> -->
-<!-- 		<select class="clsInsert" id='clsSubcode' name='cls_subcode'> -->
-<!-- 			<option value="a">초급</option> -->
-<!-- 			<option value="i">중급</option> -->
-<!-- 			<option value="f">고급</option> -->
-<!-- 			<option value="s">심화</option> -->
-<!-- 			<option value="z">기타</option> -->
-<!-- 		</select><br> -->
 
 		<label>교육 금액</label>
 		<input type='text' id='clsFee' name='cls_fee' class="clsInsert"><br>
@@ -111,7 +97,6 @@ $(function(){
 		<button id='clsSubmit'>등록</button>
 
 	</div>
+</div>
 
-</body>
-</html>
 <jsp:include page="../../include/footer.jsp" ></jsp:include>
