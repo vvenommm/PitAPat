@@ -170,11 +170,11 @@ public class ClassServiceImpl implements ClassService {
 	
 	// 5. 온라인 강좌 수정
 	@Override
-	public int modiCls(ClassVO vo) {
+	public int editCls(ClassVO vo) {
 		int resultNum = 0;
 		
 		try {
-			resultNum = dao.modiCls(vo);
+			resultNum = dao.editCls(vo);
 			logger.trace("매개변수 : " + vo);
 			logger.trace("실행 dao 결과 : " + resultNum);
 			logger.info("작업 성공~~~");
@@ -191,12 +191,12 @@ public class ClassServiceImpl implements ClassService {
 	
 	// 6. 훈련사의 내 온라인 강좌 보기
 	@Override
-	public List<ClassVO> getMyCls(MemberVO vo) {
+	public List<ClassVO> getMyCls(String emp_id) {
 		List<ClassVO> myClsList = null;
 		
 		try {
-			myClsList = dao.getMyCls(vo);
-			logger.trace("매개변수 : " + vo);
+			myClsList = dao.getMyCls(emp_id);
+			logger.trace("매개변수 : " + emp_id);
 			logger.trace("실행 dao 결과 : " + myClsList);
 			logger.info("작업 성공~~~");
 		} catch (SQLException e) {
