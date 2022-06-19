@@ -40,9 +40,6 @@ public class Cls_Detail extends HttpServlet {
 		request.setAttribute("clsOne", clsOne);
 		request.setAttribute("cls_count", cls_count);
 		
-		String id = "20007TR";
-		request.setAttribute("id", id);
-		
 		//view페이지로 이동
 		request.getRequestDispatcher("WEB-INF/view.class/cls_detail.jsp").forward(request, response);
 	}
