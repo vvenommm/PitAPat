@@ -9,13 +9,19 @@
 
 	<!-- 1. 모든 오프라인 강좌 목록 조회 -->
 	<select id="getAllEdu" resultClass="edu">
-		SELECT * FROM EDUCATION
+		SELECT E.EDU_NO, em.emp_id, EM.EMP_NAME, E.EDU_TITLE, E.EDU_CONTENT, TO_CHAR(E.EDU_DATE, 'YY"년" MM"월" DD"일" DAY') EDU_DATE, E.EDU_PLACE, E.EDU_TIME, TO_CHAR(E.EDU_FEE, '999,999') EDU_PRICE, E.EDU_LIMIT, E.EDU_STATUS FROM EDUCATION E, EMPLOYEE EM WHERE E.EMP_ID = EM.EMP_ID
+	</select>
+
+
+	<!-- 1-1. 모든 오프라인 강좌 목록 조회 (관리인 페이지용)-->
+	<select id="getAllEdu2" resultClass="edu">
+		SELECT EDU_NO, EMP_ID, EDU_TITLE, EDU_CONTENT, TO_CHAR(EDU_DATE, 'YY"."MM"."DD"."DAY') EDU_DATE, EDU_PLACE, EDU_TIME, TO_CHAR(EDU_FEE, '999,999') EDU_PRICE, EDU_LIMIT, EDU_STATUS FROM EDUCATION
 	</select>
 	
 	
 	<!-- 2. 오프라인 강좌 상세 조회 -->
 	<select id="getEduInfo" parameterClass="int" resultClass="edu">
-		SELECT * FROM EDUCATION WHERE EDU_NO = #DATA#
+		SELECT E.EDU_NO, EM.EMP_NAME, E.EMP_ID, E.EDU_TITLE, E.EDU_CONTENT, TO_CHAR(E.EDU_DATE, 'MM"월" DD"일" DAY') EDU_DATE2, e.edu_date, E.EDU_PLACE, E.EDU_TIME, TO_CHAR(E.EDU_FEE, '999,999') EDU_PRICE, E.EDU_LIMIT, E.EDU_STATUS, E.EDU_FEE FROM EDUCATION E, EMPLOYEE EM WHERE E.EMP_ID = EM.EMP_ID AND E.EDU_NO = #edu_no#
 	</select>
 	
 	
@@ -45,23 +51,29 @@
 	
 <!-- 	//7. 훈련사가 오프라인 강좌 등록 신청 -->
 	<insert id="insertEdu" parameterClass="edu">
-		insert into education values(#edu_no#, #emp_code#, #edu_title#, #edu_content#, #edu_date#, #edu_place#, #edu_time#, #edu_fee#, #edu_limit#, '등록')
+		insert into education values(#edu_no#, #emp_id#, #edu_title#, #edu_content#, #edu_date#, #edu_place#, #edu_time#, #edu_fee#, #edu_limit#, '등록')
 	</insert>
 	
 	
-<!-- 	//8. 신청된 오프라인 강좌 승인/비승인 (등록, 승인, 취소, 삭제)-->
+<!-- 	//8. 신청된 오프라인 강좌 승인/비승인 (등록, 승인, 반려, 삭제)-->
 	<update id="appInsEdu" parameterClass="edu">
 		update education set edu_status = #edu_status# where edu_no = #edu_no#
 	</update>
 	
 	
 <!-- 	//9. 오프라인 강좌 수정 -->
-	<update id="modiEdu" parameterClass="edu">
-		update education set edu_title = #edu_title#, edu_content = #edu_content#, edu_date = #edu_date#, edu_place = #edu_place#, edu_time = #edu_time#, edu_fee = #edu_fee#, edu_limit = #edu_limit#, emp_code = #emp_code#, emp_code = #emp_code# where edu_no = #edu_no#
+	<update id="editEdu" parameterClass="edu">
+		update education set edu_title = #edu_title#, edu_content = #edu_content#, edu_date = #edu_date#, edu_place = #edu_place#, edu_time = #edu_time#, edu_fee = #edu_fee#, edu_limit = #edu_limit# where edu_no = #edu_no# and emp_id = #emp_id#
 	</update>
 	
 	
-<!-- 	//10. 교육 일정 조회(옵션) -->
+<!-- 	//10. 훈련사의 내 오프라인 강좌 보기 -->
+	<select id="getMyEdu" parameterClass="String" resultClass="edu">
+		SELECT E.EDU_NO, EP.EMP_NAME, E.EDU_TITLE, E.EDU_CONTENT, TO_CHAR(E.EDU_DATE, 'YY"년" MM"월" DD"일" DAY') EDU_DATE, E.EDU_PLACE, E.EDU_TIME, TO_CHAR(E.EDU_FEE, '999,999') EDU_PRICE, E.EDU_LIMIT, E.EDU_STATUS FROM EDUCATION E, EMPLOYEE EP WHERE E.EMP_ID = EP.EMP_ID AND E.EMP_ID = #emp_id#
+	</select>
+	
+	
+<!-- 	//11. 교육 일정 조회(옵션) -->
 	
 	
 	
