@@ -1,20 +1,13 @@
 <%@page import="kr.or.ddit.pitapet.vo.EducationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="../images/logo.png"/>
-<title>피터펫(PIT-A-PET)</title>
+<jsp:include page="../../include/header.jsp" ></jsp:include>
 <%
 	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
 	String date = eduOne.getEdu_date().substring(0, 10);
-	
 %>
-</head>
-<body>
 
+<div id="eduBody">
 <div id='edu_edit_div'>
 	<form action="/PitAPet/Edu_Edit.do" method="post">
 		<input type='text' id='edu_no' name='edu_no' class="eduInsert" value="<%=eduOne.getEdu_no()%>" style="display : none"><br>
@@ -74,7 +67,6 @@
 
 	</form>
 </div>
+</div>
 
-
-</body>
-</html>
+<jsp:include page="../../include/footer.jsp" ></jsp:include>
