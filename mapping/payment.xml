@@ -4,9 +4,25 @@
 	 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 	 
 <!--이 문서는 iBatis에서 처리하여 실행할 SQL문을 작성하는 문서입니다. -->
-<sqlMap namespace = "payment">
-	<select id="getAllPay" resultClass="paymentVO">
-		SELECT * FROM payment
-	</select>
+<sqlMap namespace = "pay">
+<!-- 	//1. 결제 (전체&선택 동일)-->
+	<insert id="pay" parameterClass="map">
+		insert into payment(pay_no, mem_id, pay_total)
+		values(#pay_no#, #mem_id#, #pay_total#)
+	</insert>
+
+
+<!-- 	////////////////////////////////////////////////////////// -->
+
+
+<!-- 	//2. 결제 취소 -->
+<!-- 	이것도 장바구니에서 해결..? -->
+
+
+
+<!-- 	////////////////////////////////////////////////////////// -->
+	
+
+
 
 </sqlMap>
