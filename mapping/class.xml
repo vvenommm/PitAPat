@@ -5,10 +5,95 @@
 	 
 <!--이 문서는 iBatis에서 처리하여 실행할 SQL문을 작성하는 문서입니다. -->
 <sqlMap namespace = "class">
-	<!-- 모든 수업 가져오기 -->
-	<select id="getAllClass" resultClass="classVO">
-		SELECT * FROM CLASS
+
+	<!-- 1. 모든 강좌 목록 조회 -->
+	<select id="getAllClass" resultClass="class">
+		SELECT CLS_NO, EMP_ID, CLS_TITLE, CLS_CONTENT, TO_CHAR(CLS_FEE, '999,999') CLS_PRICE, CLS_PATH, CLS_SUBJECT, CLS_STATUS FROM CLASS
 	</select>
+
+	<!-- 1-1. cls_main.jsp에서 모든 패키지 목록 조회 -->
+	<select id="getAllPack" resultClass="class">
+		SELECT distinct SUBSTR(C.CLS_CONTENT, 1, 20) || '...' CLS_CONTENT, TO_CHAR(C.CLS_FEE, '999,999') CLS_PRICE, 
+C.CLS_SUBJECT, COUNT(C.CLS_SUBJECT) CLS_COUNT, E.EMP_NAME
+FROM CLASS C, EMPLOYEE E 
+WHERE C.EMP_ID = E.EMP_ID 
+and c.cls_status = '등록'
+GROUP BY CLS_SUBJECT, C.CLS_CONTENT, C.CLS_FEE, E.EMP_NAME
+	</select>
+
+	
+	<!-- 1-2. cls_main.jsp에서 모든 패키지 목록에서 각 패키지의 총 강의 수 조회 -->
+	<select id="getClsCount" resultClass="class">
+		SELECT CLS_SUBJECT, COUNT(CLS_SUBJECT) CLS_COUNT FROM CLASS GROUP BY CLS_SUBJECT
+	</select>
+
+	
+	<!-- 2. 온라인 강좌 상세 조회 -->
+	<select id="getClsInfo" parameterClass="String" resultClass="class">
+		SELECT C.CLS_NO, E.EMP_ID, E.EMP_NAME, C.CLS_TITLE, C.CLS_CONTENT, TO_CHAR(C.CLS_FEE, '999,999') CLS_PRICE, c.cls_fee, C.CLS_PATH, C.CLS_SUBJECT FROM CLASS C, EMPLOYEE E WHERE C.EMP_ID = E.EMP_ID and cls_subject=#cls_subject# order by cls_no
+	</select>
+	
+	<select id="getClsNo" resultClass="int">
+		select max(cls_no) from class
+	</select>
+	
+	
+<!-- 	//3. 훈련사가 온라인 강좌 등록 신청 -->
+<!-- 	<insert id="insertCls" parameterClass="class"> -->
+<!-- 		INSERT INTO CLASS (CLS_NO, CLS_SUBJECT, CLS_TITLE, CLS_CONTENT, EMP_ID, CLS_FEE, CLS_PATH, CLS_STATUS)  -->
+<!-- 		VALUES (#cls_no#, #cls_subject#, #cls_title#, #cls_content#, #emp_id#, #cls_fee#, #cls_path#, #cls_status#) -->
+		
+<!-- 		<selectKey keyProperty="CLS_NO" resultClass="int"> -->
+<!-- 				SELECT CLS_NO FROM CLASS -->
+<!-- 		</selectKey> -->
+<!-- 	</insert> -->
+	<insert id="insertCls" parameterClass="class">
+<!-- 		INSERT -->
+<!-- 		INTO CLASS (cls_no, CLS_SUBJECT, CLS_CONTENT, CLS_FEE, CLS_TITLE, CLS_PATH)  -->
+		
+<!-- 		SELECT cls_no, CLS_SUBJECT, CLS_CONTENT, CLS_FEE, CLS_TITLE, CLS_PATH -->
+<!-- 		FROM ( -->
+<!--    		<iterate conjunction=" UNION ALL "> -->
+<!-- 			SELECT (SELECT NVL(MAX(CLS_NO),0) + 1 AS "cls_no" FROM CLASS ) , -->
+<!-- 				#[].cls_subject# AS "CLS_SUBJECT", -->
+<!-- 				#[].cls_content# AS "CLS_CONTENT", -->
+<!-- 				#[].cls_fee# AS "CLS_FEE", -->
+<!-- 				#[].cls_title# AS "CLS_TITLE", -->
+<!-- 				#[].cls_path# AS "CLS_PATH" -->
+<!-- 			FROM DUAL -->
+<!-- 	    </iterate> -->
+<!-- 	    ) -->
+		INSERT INTO CLASS (CLS_NO, CLS_SUBJECT, CLS_CONTENT, CLS_FEE, CLS_TITLE, CLS_PATH, EMP_ID, CLS_STATUS)
+		VALUES (class_seq.nextval, #cls_subject#, #cls_content#, #cls_fee#, #cls_title#, #cls_path#, #emp_id#, '등록')
+	</insert>
+	
+	
+<!-- 	//4. 신청된 온라인 강좌 승인/비승인 (등록, 승인, 취소, 삭제) -> 그냥 등록, 삭제만-->
+	<update id="appInsCls" parameterClass="class">
+		UPDATE CLASS SET CLS_STATUS = #cls_status# WHERE cls_subject = #cls_subject#
+	</update>
+	
+	
+<!-- 	//5. 온라인 강좌 수정 -->
+	<update id="editCls" parameterClass="class">
+		UPDATE CLASS SET cls_subject = #cls_subject#, cls_content = #cls_content#, cls_fee = #cls_fee#, CLS_TITLE = #cls_title#, cls_path = #cls_path# WHERE CLS_NO = #cls_no#
+	</update>
+	
+	
+<!-- 	//6. 훈련사의 내 온라인 강좌 목록 보기 -->
+	<select id="getMyCls" parameterClass="String" resultClass="class">
+		SELECT distinct SUBSTR(C.CLS_CONTENT, 1, 20) || '...' CLS_CONTENT, TO_CHAR(C.CLS_FEE, '999,999') CLS_PRICE, 
+			C.CLS_SUBJECT, COUNT(C.CLS_SUBJECT) CLS_COUNT, E.EMP_NAME, c.cls_status
+			FROM CLASS C, EMPLOYEE E 
+			WHERE C.EMP_ID = E.EMP_ID 
+			and c.emp_id = #emp_id#
+			and c.cls_status = '등록'
+			GROUP BY CLS_SUBJECT, C.CLS_CONTENT, C.CLS_FEE, E.EMP_NAME, c.cls_status
+	</select>
+	
+	
+<!-- 	//10. 교육 일정 조회(옵션) -->
+	
 	
 	
 
