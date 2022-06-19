@@ -49,9 +49,6 @@ public class Edu_Delete extends HttpServlet {
 			//view페이지로 이동
 			request.getRequestDispatcher("/Edu_Detail.do").forward(request, response);
 		}
-		
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
