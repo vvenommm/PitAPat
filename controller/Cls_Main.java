@@ -26,15 +26,6 @@ public class Cls_Main extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 
-		HttpSession session = request.getSession();
-//		String id = (String)session.getAttribute("id");
-		String id = "20007TR";
-		session.setAttribute("id", id);
-		EmployeeVO vo = new EmployeeVO();
-		vo.setEmp_id(id);
-		session.setAttribute("loginEmpl", vo);
-		
-
 		// service 객체 얻어오기
 		ClassService service = ClassServiceImpl.getInstance();
 		
