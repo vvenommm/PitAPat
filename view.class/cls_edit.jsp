@@ -3,10 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../../include/header.jsp" ></jsp:include>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <style>
 	label{
 		display: inline-block;
@@ -85,7 +81,6 @@ $(function(){
 	})
 })
 </script>
-<body>
 
 	<div id='cls_insert_div'>
 
@@ -120,8 +115,5 @@ $(function(){
 		<button id='clsEditSubmit'>수정</button>
 
 	</div>
-
-</body>
-</html>
 
 <jsp:include page="../../include/footer.jsp" ></jsp:include>
