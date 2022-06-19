@@ -30,7 +30,7 @@ public class Cls_intoCart extends HttpServlet {
 		HttpSession session = request.getSession();
 		String mem_id = (String)session.getAttribute("id");
 
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("cls_subject", cls_subject);
 		map.put("mem_id", mem_id);
 		
