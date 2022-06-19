@@ -121,7 +121,7 @@ public interface EducationService {
 	 * @param vo vo 수정한 정보를 담고 있는 vo
 	 * @return 성공 : 1, 실패 : 0
 	 */
-	public int modiEdu (EducationVO vo);
+	public int editEdu (EducationVO vo);
 	
 	
 	//////////////////////////////////////////////////////////////////
