@@ -13,9 +13,7 @@ public class EducationDAOImpl implements EducationDAO {
 	
 	private static EducationDAOImpl dao;
 	SqlMapClient smc = SqlMapClientFactory.getSqlMapClient(); 
-	private EducationDAOImpl() {
-//		smc = SqlMapClientFactory.getSqlMapClient();
-	}
+	private EducationDAOImpl() { }
 	
 	public static EducationDAOImpl getInstance() {
 		if(dao == null) dao = new EducationDAOImpl();
