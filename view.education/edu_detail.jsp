@@ -1,31 +1,19 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="kr.or.ddit.pitapet.vo.EducationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<jsp:include page="../../include/header.jsp" ></jsp:include>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
-<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath() %>/WebContent/WEB-INF/images/logo.png"/>
-<title>피터펫(PIT-A-PET)</title>
 <%
 	EducationVO eduOne = (EducationVO)request.getAttribute("eduOne");
 
 //아이디 검증////////////////////////////////////////////////////
-// 	String id = (String)session.getAttribute("id");
-// if(id == null) id = "";
-// 	String id = "";
-// 	String id = "20007AD";
-	String id = "20007TR";
-// 	String id = "20006TR";
+String id = (String)session.getAttribute("id");
+	if(id == null){
+		id = "";
+	}
 	String regex = "[0-9]{1,5}[A-Z]{2}";
 	boolean result = Pattern.matches(regex, id);
 	////////////////////////////////////////////////////////////////
@@ -34,26 +22,49 @@
 <script type="text/javascript">
 $(function(){
 	edu_no = "<%=eduOne.getEdu_no()%>";
-	mem_id = "<%=id%>";
 
 	//장바구니에 넣기
 	$('#getInCart').on('click', function(){
-		
 		if(mem_id.equals("")){
 			alert('로그인 후 이용 가능합니다.');
 		}else{
+		<%
+			//오늘날짜 yyyy-MM-dd로 생성
+			String todayfm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+		
+			//yyyy-MM-dd 포맷 설정
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			
+			//비교할 date와 today를 데이터 포맷으로 변경
+			Date eduDay = new Date(dateFormat.parse(eduOne.getEdu_date()).getTime()); 
+			Date today = new Date(dateFormat.parse(todayfm).getTime()); //오늘
+			
+			//compareTo메서드를 통한 날짜비교
+			int compare = eduDay.compareTo(today); 
+			 
+			//조건문
+			if(compare > 0) { //date가 today보다 큽니다.(date > today)
+		%>
+		
 			$.ajax({
-				url : 'http://localhost/PitAPet/IntoCart.do',
+				url : 'http://localhost/PitAPet/Edu_intoCart.do',
 				type : 'post',
-				data : {"edu_no" : edu_no, "mem_id" : mem_id},
+				data : {"edu_no" : edu_no},
 				success : function(res){
-					alert("장바구니에 담기 성공!");
+					if(res == 1){
+ 						alert(res.sw);
+					}else{
+ 						alert(res.sw);
+					}
 				},
 				error : function(xhr){
 					alert("상태 : " + xhr.status);
 				},
 				dataType : 'json'
 			});
+		<%
+			}
+		%>
 		}
 	})
 	
@@ -67,7 +78,7 @@ $(function(){
 	$('#deleteEdu').on('click', function(){
 		let text = '해당 강의를 삭제하시겠습니까?';
 		if(confirm(text) == true){
-<%-- 			location.href = "<%=request.getContextPath()%>/Cls_Delete.do?cls_subject=<%=clsOneList.get(0).getCls_subject()%>&cls_count=<%=cls_count%>"; --%>
+			location.href = "<%=request.getContextPath()%>/Edu_Delete.do?edu_no=<%=eduOne.getEdu_no()%>";
 		}
 	})
 	
@@ -79,8 +90,8 @@ $(function(){
 })
 </script>
 
-</head>
-<body>
+<div id="eduBody">
+
 <%
 	System.out.println("edu_detail.jsp");
 	
@@ -163,5 +174,6 @@ $(function(){
 </table>
 	</div><br>
 	<input type="button" id="getInCart" value="장바구니 담기">
-	
+</div>
+
 <jsp:include page="../../include/footer.jsp" ></jsp:include>
