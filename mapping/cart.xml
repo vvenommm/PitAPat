@@ -89,9 +89,9 @@
 
 <!-- 		//5. 장바구니 상품 넣기 -->
 <!-- 	//5-1. 유치원 -->
-	<insert id="kinFinCart" parameterClass="map">
+	<insert id="kinFinCart" parameterClass="string">
 		insert into cart(cart_no, mem_id, cart_status, kin_code) 
-		values(class_seq.nextVal, #mem_id#, '미결', (SELECT KIN_CODE FROM KINDERGARTEN WHERE SUBSTR(KIN_CODE,2,2) = SUBSTR(SYSDATE,4,2)))
+		values(class_seq.nextVal, #data#, '미결', (SELECT KIN_CODE FROM KINDERGARTEN WHERE SUBSTR(KIN_CODE,2,2) = SUBSTR(SYSDATE,4,2)))
 	</insert>
 	
 	
