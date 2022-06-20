@@ -10,6 +10,15 @@
 		insert into payment(pay_no, mem_id, pay_total)
 		values(#pay_no#, #mem_id#, #pay_total#)
 	</insert>
+	
+<!-- 	//2. insert를 위한 PAY_NO 가져오는 select -->
+	<select id="getPayNo" resultClass="String">
+		SELECT NVL(MAX(PAY_NO), TO_CHAR(SYSDATE, 'YYMMDD') || '00')+1 AS PAY_NO FROM PAYMENT
+WHERE SUBSTR(PAY_NO, 1, 6) = TO_CHAR(SYSDATE, 'YYMMDD')
+	</select>
+	
+<!-- 	//2. insert를 위한 PAY_NO 가져오는 select -->
+	
 
 
 <!-- 	////////////////////////////////////////////////////////// -->
